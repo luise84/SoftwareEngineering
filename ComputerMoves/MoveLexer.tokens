@@ -1,0 +1,6 @@
+Separator=1
+SimpleRow=2
+SimplePosition=3
+LineBreak=4
+';'=1
+'\r\n'=4
