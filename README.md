@@ -7,7 +7,7 @@ In diesem Projekt soll eine Person gegen den Computer spielen können.
 ## Erweiterung der Codegenerierung :    
   Spielzugregeln gemäß des Levels der KI durch if-Abfragen   
   Spielzugregeln gemäß des Levels zur Überprüfung der Züge des realen Spielers  
-  Grafische Attribute wie Farbe/Textur für Spielfeld/Steine/etc.  
+  Grafische gameConfigurations.Attribute wie Farbe/Textur für Spielfeld/Steine/etc.
   Spielfeldgenerierung mit Anordnung beider Spielfigurenblöcke: Klassisch, Renpaarden, Le Zug  
 
 Level Straight: nur waagerechte und senkrechte Bewegungen nach vorne und hinten erlaubt (4)  
