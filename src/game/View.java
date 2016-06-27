@@ -1,5 +1,7 @@
 package game;
 
+import gameConfigurations.Attribute;
+
 /**
  * Created by Luise on 23.06.2016.
  */
