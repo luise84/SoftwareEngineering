@@ -19,6 +19,7 @@ public class Field extends JFrame implements MouseListener,MouseMotionListener{
     JLayeredPane layeredPane;
     JPanel chessBoard;
     JLabel chessPiece;
+    int field_count = 64;
     int xAdjustment;
     int yAdjustment;
 
@@ -33,14 +34,13 @@ public class Field extends JFrame implements MouseListener,MouseMotionListener{
         layeredPane.addMouseMotionListener(this);
 
         //Add a chess board to the Layered Pane
-
         chessBoard = new JPanel();
         layeredPane.add(chessBoard, JLayeredPane.DEFAULT_LAYER);
         chessBoard.setLayout( new GridLayout(8, 8) );
         chessBoard.setPreferredSize( boardSize );
         chessBoard.setBounds(0, 0, boardSize.width, boardSize.height);
 
-        for (int i = 0; i < 64; i++) {
+        for (int i = 0; i < field_count; i++) {
             JPanel square = new JPanel( new BorderLayout() );
             chessBoard.add( square );
 
@@ -54,28 +54,35 @@ public class Field extends JFrame implements MouseListener,MouseMotionListener{
         //Add a few pieces to the board
 
         //@todo at this point the own stone class might be needed
-        System.out.println(new File("img/black.png").exists());
-        BufferedImage img = null;
+
+        BufferedImage img_b = null;
+        BufferedImage img_w = null;
+
         try {
-            img = ImageIO.read(new File("img/black.png"));
+            img_b = ImageIO.read(new File("img/black.png"));
+            img_w = ImageIO.read(new File("img/white.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-
-
-
-
-        Image dimg = img.getScaledInstance(36, -1, Image.SCALE_SMOOTH);
+        Image dimg_b = img_b.getScaledInstance(36, -1, Image.SCALE_SMOOTH);
+        Image dimg_w = img_w.getScaledInstance(36, -1, Image.SCALE_SMOOTH);
         //JLabel piece = new JLabel(new ImageIcon("img/black.png"));
-        ImageIcon icon = new ImageIcon(dimg);
-        JLabel piece = new JLabel(icon);
+        ImageIcon icon_b = new ImageIcon(dimg_b);
+        ImageIcon icon_w = new ImageIcon(dimg_w);
+
+
 
         for(int i = 0; i<16; i++){
-            System.out.println(i);
-            JPanel panel = (JPanel)chessBoard.getComponent(i);
-            panel.add(piece);
+            JLabel piece_b = new JLabel(icon_b);
+            JPanel panel_b = (JPanel)chessBoard.getComponent(i);
+            panel_b.add(piece_b);
+
+            JLabel piece_w = new JLabel(icon_w);
+            JPanel panel_w = (JPanel)chessBoard.getComponent(field_count -1 - i);
+            panel_w.add(piece_w);
         }
+
 
         /*
         piece = new JLabel(new ImageIcon("/home/vinod/amarexamples/chess1.jpg"));
