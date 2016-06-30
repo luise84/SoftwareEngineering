@@ -114,13 +114,7 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 	}
 
 
-	private void notifyView(){
-
-	}
-
-	private boolean endGame(){
-		return false;
-	}
+	
 
 
 
