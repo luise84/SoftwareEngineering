@@ -18,20 +18,15 @@ import java.io.IOException;
 public class View extends JFrame implements MouseListener,MouseMotionListener {
 	private Field fieldattr;
 	private Attribute fieldAttribute;
-	private void showField(){
+	private Stone[][] field;
+	JLayeredPane layeredPane;
+	JPanel chessBoard;
+	JLabel chessPiece;
+	int field_count = 64;
+	int xAdjustment;
+	int yAdjustment;
 
-	}
-
-
-		private Stone[][] field;
-		JLayeredPane layeredPane;
-		JPanel chessBoard;
-		JLabel chessPiece;
-		int field_count = 64;
-		int xAdjustment;
-		int yAdjustment;
-
-		public View(){
+	public View(){
 		Dimension boardSize = new Dimension(600, 600);
 
 		//  Use a Layered Pane for this this application
@@ -104,6 +99,15 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
         panel.add(piece);
         */
 	}
+
+	private void showField(){
+
+	}
+
+
+
+
+
 
 	private boolean setPosition(Stone stone, int x, int y){
 		return true;

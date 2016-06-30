@@ -7,5 +7,5 @@ public class AIPlayer {
 	public AIPlayer(){
 
 	}
-	private void calculateMove(){}
+	public void calculateMove(){}
 }

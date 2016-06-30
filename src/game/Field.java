@@ -6,7 +6,12 @@ package game;
 public class Field{
     private Stone[][] field;
 
-    private boolean setPosition(Stone stone, int x, int y){
+    public Field(Stone[][] fieldarray){
+        this.field = fieldarray;
+
+    }
+
+    public boolean setPosition(Stone stone, int x, int y){
         return true;
     }
 
@@ -21,6 +26,6 @@ public class Field{
 
 
     public static void main(String[] args){
-       
+
     }
 }

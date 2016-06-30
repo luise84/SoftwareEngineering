@@ -28,7 +28,7 @@ public class RenpaardenField implements IPlayField {
 			}
 		}
 
-		Field renpaarden = new Field(startFormation);
+		Field renpaarden = new Field(this.startFormation);
 		return renpaarden;
 	}
 }

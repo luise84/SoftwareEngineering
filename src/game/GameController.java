@@ -12,30 +12,44 @@ public class GameController {
 	private Field field;
 	private String level;
 	private AIPlayer aiplayer;
-	private static GameSetup gamesetup;
+	private GameSetup gamesetup;
 
 	public GameController() {
 		this.gamesetup = new GameSetup();
 		aiplayer = new AIPlayer();
 	}
 
-	private boolean setMove(Stone stone, int x, int y){
-		return false;
-	}
+	/*private boolean setMove(Stone stone, int x, int y){
+		if(field.setPosition(stone,x,x)) return true;
+		else return false;
+	}*/
 	private void waitForPlayerInput(){
 
 	}
 
+	private void userMove(){
+
+	}
+
+	private void computerMove(){
+		aiplayer.calculateMove();
+	}
 
 
-	private static void startGame(){
-		gamesetup.main();
+
+
+
+	private void startGame(){
+		field = gamesetup.chooseField();
+		level = gamesetup.chooseLevel();
+
 
 	}
 	private void setup(){}
 
-	public static void main(String args[]){
+	public void main(String args[]){
 		startGame();
+		userMove();
 
 	}
 }

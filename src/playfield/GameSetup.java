@@ -17,7 +17,7 @@ public class GameSetup {
 
 	}
 
-	public static Field chooseField(){
+	public Field chooseField(){
 		Field field = null;
 		IPlayField playfield;
 		System.out.println("Gib dein gewünschtes Spielfeld ein! Wähle Classic, Le Zug oder Renpaarden!");
@@ -43,7 +43,7 @@ public class GameSetup {
 
 
 	}
-	public static String chooseLevel(){
+	public String chooseLevel(){
 		System.out.println("Gib dein Level ein!");
 		System.out.println("Gib 'Straight' ein: nur waagerechte und senkrechte Bewegungen nach vorne und hinten erlaubt. ");
 		System.out.println("Gib 'Free' ein: alle Bewegungsrichtungen nach vorne und hinten erlaubt. ");
@@ -56,7 +56,7 @@ public class GameSetup {
 
 	}
 
-	private static String readUserInput(String[] options){
+	private String readUserInput(String[] options){
 		Scanner in = new Scanner(System.in);
 		String userAnswer = in.nextLine();
 		userAnswer = userAnswer.toLowerCase();
@@ -70,10 +70,10 @@ public class GameSetup {
 	}
 
 
-	public static void main(){
+	/*public static void main(){
 		chooseField();
 		chooseLevel();
 
 
-	}
+	}*/
 }
