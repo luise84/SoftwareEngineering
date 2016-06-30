@@ -24,7 +24,7 @@ public class Field{
 
     }
     /*
-    stone has to have the right combination of right movementtype and movedirection
+    stone must have the right combination of right movementtype and movedirection
      */
     private boolean checkMovement(Stone stone, int x, int y){
         //stone can jump
@@ -43,11 +43,14 @@ public class Field{
             //@ToDO check if new field in next row or in next column
             //condition: leveltype!!!
             if(field[x][y] == null){
-                //set MoveNumber
-                stone.setMovementType();
+                //set MoveNumber (this includes also setMovementType)
+                stone.setMoveNumber();
                 return true;
             }
-            else return false;
+            else{
+
+                return false;
+            }
 
         }
     }

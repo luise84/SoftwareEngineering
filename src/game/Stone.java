@@ -10,19 +10,27 @@ public class Stone {
 	//movementType: true = jump, false = move
 	public boolean movementType;
 	//moveNumber = 0 -> jump, 1 = first move done, 2 = second move done
-	public int moveNumber = 0;
-	public void setMovementType() {
-		if(movementType) movementType = false;
-		else movementType = true;
+	public int moveNumber;
+	public void setMovementType(boolean nextState) {
+		movementType = nextState;
+
 	}
 
 	public void setMoveNumber(){
-		if(moveNumber == 0 || moveNumber == 1){
+		if(moveNumber == 0){
+			moveNumber++;
+			//from true to false
+			setMovementType(false);
+			return;
+		}
+		else if (moveNumber == 1){
 			moveNumber++;
 			return;
 		}
 		else if(moveNumber == 2){
 			moveNumber = 0;
+			//from false to true
+			setMovementType(true);
 			return;
 		}
 	}
@@ -33,6 +41,7 @@ public class Stone {
 	public Stone(boolean affiliation) {
 		this.movementType = true;
 		this.affiliation = affiliation;
+		this.moveNumber = 0;
 	}
 
 }
