@@ -7,4 +7,9 @@ public class Stone {
 
 	private boolean affiliation;
 	private String color;
+
+	public Stone(boolean affiliation) {
+		this.affiliation = affiliation;
+	}
+
 }
