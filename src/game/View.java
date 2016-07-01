@@ -4,7 +4,6 @@ import gameConfigurations.Attribute;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -23,10 +22,9 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 	JLayeredPane layeredPane;
 	JPanel chessBoard;
 	JLabel chessPiece;
-	int field_count = 81;
+	int field_count = 64;
 	int xAdjustment;
 	int yAdjustment;
-	Point old_loc;
 
 	public View(){
 		Dimension boardSize = new Dimension(600, 600);
@@ -41,22 +39,19 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 		//Add a chess board to the Layered Pane
 		chessBoard = new JPanel();
 		layeredPane.add(chessBoard, JLayeredPane.DEFAULT_LAYER);
-		chessBoard.setLayout( new GridLayout(9, 9) );
+		chessBoard.setLayout( new GridLayout(8, 8) );
 		chessBoard.setPreferredSize( boardSize );
 		chessBoard.setBounds(0, 0, boardSize.width, boardSize.height);
 
 		for (int i = 0; i < field_count; i++) {
 			JPanel square = new JPanel( new BorderLayout() );
-			square.setBorder(BorderFactory.createLineBorder(Color.black));
 			chessBoard.add( square );
 
 			int row = (i / 8) % 2;
-			square.setBackground(Color.ORANGE);
-			/*if (row == 0)
+			if (row == 0)
 				square.setBackground( i % 2 == 0 ? Color.YELLOW : Color.ORANGE);
 			else
 				square.setBackground( i % 2 == 0 ? Color.ORANGE: Color.YELLOW);
-				*/
 		}
 
 		//Add a few pieces to the board
@@ -80,8 +75,8 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 		ImageIcon icon_w = new ImageIcon(dimg_w);
 
 
-		//number of stones must be dependend on board type
-		for(int i = 0; i<18; i++){
+
+		for(int i = 0; i<16; i++){
 			JLabel piece_b = new JLabel(icon_b);
 			JPanel panel_b = (JPanel)chessBoard.getComponent(i);
 			panel_b.add(piece_b);
@@ -119,7 +114,7 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 	}
 
 
-	
+
 
 
 
@@ -132,9 +127,8 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
         frame.setPreferredSize(new Dimension(800, 800));
         //frame.pack();
         //frame.setVisible(true);
-*/
-
-		View frame = new View();
+        */
+		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE );
 		frame.pack();
 		frame.setResizable(true);
@@ -150,55 +144,14 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		chessPiece = null;
-		Component c =  chessBoard.findComponentAt(e.getX(), e.getY());
-
-
-		if (c instanceof JPanel)
-			return;
-
-		Point parentLocation = c.getParent().getLocation();
-		// save the initial position in order to reset if necessary
-		old_loc = parentLocation;
-		xAdjustment = parentLocation.x - e.getX();
-		yAdjustment = parentLocation.y - e.getY();
-		chessPiece = (JLabel)c;
-		chessPiece.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
-		chessPiece.setSize(chessPiece.getWidth(), chessPiece.getHeight());
-		layeredPane.add(chessPiece, JLayeredPane.DRAG_LAYER);
 
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		if(chessPiece == null){
-			return;
-		}
-
-		chessPiece.setVisible(false);
-		Component c =  chessBoard.findComponentAt(e.getX(), e.getY());
-
-		//if there is another stone return the dragged stone to its initial place
-		if (c instanceof JLabel){
-			System.out.println(old_loc);
-			JPanel old_panel = (JPanel)chessBoard.findComponentAt(old_loc);
-			System.out.println(old_panel);
-			old_panel.add(chessPiece);
-		}
-		else {
-			Container parent = (Container)c;
-			parent.add( chessPiece );
-		}
-		chessPiece.setVisible(true);
-	}
-	@Override
-	public void mouseDragged(MouseEvent e) {
-		if (chessPiece == null){
-			return;
-		}
-		chessPiece.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
 
 	}
+
 	@Override
 	public void mouseEntered(MouseEvent e) {
 
@@ -209,7 +162,10 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 
 	}
 
+	@Override
+	public void mouseDragged(MouseEvent e) {
 
+	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
