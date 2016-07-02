@@ -6,6 +6,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -120,31 +121,6 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 		return true;
 	}
 
-
-
-
-
-
-	public static void main(String[] args){
-        /*JFrame frame = new JFrame();
-        JPanel field = new JPanel(new GridLayout());
-        frame.add(field);
-
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(800, 800));
-        //frame.pack();
-        //frame.setVisible(true);
-*/
-
-		View frame = new View();
-		frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE );
-		frame.pack();
-		frame.setResizable(true);
-		frame.setLocationRelativeTo( null );
-		frame.setVisible(true);
-
-	}
-
 	@Override
 	public void mouseClicked(MouseEvent e) {
 
@@ -152,8 +128,6 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 
 	public ArrayList<JPanel> getAllowedMoves(JPanel currentField, Point location){
 		Dimension dim = currentField.getSize();
-		System.out.println(location);
-
 
 		//hardcoded allowed moves for gamemode straight
 		ArrayList<Component> possible_fields = new ArrayList<>();
@@ -164,12 +138,35 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 
 		//Component c_=  chessBoard.findComponentAt(location.x , location.y - dim.height);
 		ArrayList<JPanel> ret_fields = new ArrayList<>();
+
 		for(Component field : possible_fields){
 			if(field instanceof JPanel){
 				field.setBackground(Color.GREEN);
 				ret_fields.add((JPanel)field);
 			}else if (field instanceof JLabel){
-				//if there already is another piece you can skip
+				//if there already is another piece you can skip @todo recursion??
+				Point main_loc = (chessBoard.findComponentAt(location.x , location.y)).getParent().getLocation();
+				Point ad_loc = field.getParent().getLocation();
+
+				ArrayList<Component> skip_fields = new ArrayList<>();
+				if(main_loc.getY() < ad_loc.getY()){
+					skip_fields.add(chessBoard.findComponentAt(location.x , location.y + 2 * dim.height));
+				}else if(main_loc.getY() > ad_loc.getY()){
+					skip_fields.add(chessBoard.findComponentAt(location.x , location.y - 2 * dim.height));
+				}
+				if(main_loc.getX() > ad_loc.getX()){
+					skip_fields.add(chessBoard.findComponentAt(location.x - 2 * dim.width, location.y ));
+				}else if (main_loc.getX() < ad_loc.getX()){
+					skip_fields.add(chessBoard.findComponentAt(location.x + 2 * dim.width, location.y ));
+				}
+
+				Component ad = chessBoard.findComponentAt(location.x , location.y - 2 *dim.height);
+				for(Component skip : skip_fields){
+					if(skip instanceof JPanel){
+						(skip).setBackground(Color.green);
+						ret_fields.add((JPanel)skip);
+					}
+				}
 			}
 		}
 		return ret_fields;
@@ -223,7 +220,7 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 		else {
 			boolean move_check = false;
 			for(JPanel field : allowed_fields){
-				if(((Component)field).equals(c)){
+				if((field).equals(c)){
 					move_check = true;
 				}
 			}
@@ -256,6 +253,17 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 	public void mouseExited(MouseEvent e) {
 
 	}
+	public static void main(String[] args){
+		View frame = new View();
+		frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE );
+		frame.pack();
+		frame.setResizable(true);
+		frame.setLocationRelativeTo( null );
+		frame.setVisible(true);
+
+	}
+
+
 
 
 
