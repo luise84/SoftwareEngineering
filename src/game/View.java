@@ -27,7 +27,7 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 	JPanel chessBoard;
 	JLabel chessPiece;
 	int field_count = 81;
-	String movement_mode = "diagonal";
+	String movement_mode = "free";
 	int xAdjustment;
 	int yAdjustment;
 	Point old_loc;
@@ -127,6 +127,15 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 				ret_fields.add(chessBoard.findComponentAt(location.x - dim.width, location.y + dim.height));
 				ret_fields.add(chessBoard.findComponentAt(location.x - dim.width, location.y - dim.height));
 				ret_fields.add(chessBoard.findComponentAt(location.x + dim.height, location.y - dim.height));
+			case "free" :
+				ret_fields.add(chessBoard.findComponentAt(location.x , location.y - dim.height));
+				ret_fields.add(chessBoard.findComponentAt(location.x , location.y + dim.height));
+				ret_fields.add(chessBoard.findComponentAt(location.x - dim.width, location.y ));
+				ret_fields.add(chessBoard.findComponentAt(location.x + dim.height, location.y ));
+				ret_fields.add(chessBoard.findComponentAt(location.x + dim.width , location.y + dim.height));
+				ret_fields.add(chessBoard.findComponentAt(location.x - dim.width, location.y + dim.height));
+				ret_fields.add(chessBoard.findComponentAt(location.x - dim.width, location.y - dim.height));
+				ret_fields.add(chessBoard.findComponentAt(location.x + dim.height, location.y - dim.height));
 		}
 
 		return ret_fields;
@@ -170,6 +179,35 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 							skip_fields.add(chessBoard.findComponentAt(location.x + 2 * dim.width, location.y ));
 						}
 					case "diagonal":
+						if(main_loc.getY() < ad_loc.getY() &&
+								main_loc.getX() < ad_loc.getX()){
+							skip_fields.add(chessBoard.findComponentAt(location.x + 2 * dim.width , location.y + 2 * dim.height));
+						}else if(main_loc.getY() > ad_loc.getY() &&
+								main_loc.getX() > ad_loc.getX()){
+							skip_fields.add(chessBoard.findComponentAt(location.x - 2 * dim.width, location.y - 2 * dim.height));
+						}
+						if(main_loc.getX() > ad_loc.getX() &&
+								main_loc.getY() < ad_loc.getY()){
+							skip_fields.add(chessBoard.findComponentAt(location.x - 2 * dim.width, location.y + 2 * dim.height ));
+						}else if (main_loc.getX() < ad_loc.getX() &&
+								main_loc.getY() > ad_loc.getY()){
+							skip_fields.add(chessBoard.findComponentAt(location.x + 2 * dim.width, location.y - 2 * dim.height));
+						}
+					case "free" :
+						if(main_loc.getY() < ad_loc.getY()&&
+								!(main_loc.getX() != ad_loc.getX())){
+							skip_fields.add(chessBoard.findComponentAt(location.x , location.y + 2 * dim.height));
+						}else if(main_loc.getY() > ad_loc.getY() &&
+								!(main_loc.getX() != ad_loc.getX())){
+							skip_fields.add(chessBoard.findComponentAt(location.x , location.y - 2 * dim.height));
+						}
+						if(main_loc.getX() > ad_loc.getX() &&
+								!(ad_loc.getY() != main_loc.getY())){
+							skip_fields.add(chessBoard.findComponentAt(location.x - 2 * dim.width, location.y ));
+						}else if (main_loc.getX() < ad_loc.getX() &&
+								!(main_loc.getY() != ad_loc.getY())){
+							skip_fields.add(chessBoard.findComponentAt(location.x + 2 * dim.width, location.y ));
+						}
 						if(main_loc.getY() < ad_loc.getY() &&
 								main_loc.getX() < ad_loc.getX()){
 							skip_fields.add(chessBoard.findComponentAt(location.x + 2 * dim.width , location.y + 2 * dim.height));
@@ -288,10 +326,6 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 		frame.setVisible(true);
 
 	}
-
-
-
-
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
