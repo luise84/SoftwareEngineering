@@ -13,6 +13,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -26,7 +27,7 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 	JPanel chessBoard;
 	JLabel chessPiece;
 	int field_count = 81;
-	String movement = "straight";
+	String movement_mode = "diagonal";
 	int xAdjustment;
 	int yAdjustment;
 	Point old_loc;
@@ -93,19 +94,6 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 			JPanel panel_w = (JPanel)chessBoard.getComponent(field_count -1 - i);
 			panel_w.add(piece_w);
 		}
-
-
-        /*
-        piece = new JLabel(new ImageIcon("/home/vinod/amarexamples/chess1.jpg"));
-        panel = (JPanel)chessBoard.getComponent(15);
-        panel.add(piece);
-        piece = new JLabel(new ImageIcon("/home/vinod/amarexamples/king.jpg"));
-        panel = (JPanel)chessBoard.getComponent(16);
-        panel.add(piece);
-        piece = new JLabel(new ImageIcon("/home/vinod/amarexamples/camel.jpg"));
-        panel = (JPanel)chessBoard.getComponent(20);
-        panel.add(piece);
-        */
 	}
 
 	private void showField(){
@@ -125,19 +113,36 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 	public void mouseClicked(MouseEvent e) {
 
 	}
+	public ArrayList<Component> getLevelFields(JPanel currentField , Point location){
+		ArrayList<Component> ret_fields = new ArrayList<>();
+		Dimension dim = currentField.getSize();
+		switch(movement_mode){
+			case "straight" :
+				ret_fields.add(chessBoard.findComponentAt(location.x , location.y - dim.height));
+				ret_fields.add(chessBoard.findComponentAt(location.x , location.y + dim.height));
+				ret_fields.add(chessBoard.findComponentAt(location.x - dim.width, location.y ));
+				ret_fields.add(chessBoard.findComponentAt(location.x + dim.height, location.y ));
+			case "diagonal" :
+				ret_fields.add(chessBoard.findComponentAt(location.x + dim.width , location.y + dim.height));
+				ret_fields.add(chessBoard.findComponentAt(location.x - dim.width, location.y + dim.height));
+				ret_fields.add(chessBoard.findComponentAt(location.x - dim.width, location.y - dim.height));
+				ret_fields.add(chessBoard.findComponentAt(location.x + dim.height, location.y - dim.height));
+		}
+
+		return ret_fields;
+	}
+
 
 	public ArrayList<JPanel> getAllowedMoves(JPanel currentField, Point location){
-		Dimension dim = currentField.getSize();
 
 		//hardcoded allowed moves for gamemode straight
-		ArrayList<Component> possible_fields = new ArrayList<>();
-		possible_fields.add(chessBoard.findComponentAt(location.x , location.y - dim.height));
-		possible_fields.add(chessBoard.findComponentAt(location.x , location.y + dim.height));
-		possible_fields.add(chessBoard.findComponentAt(location.x - dim.width, location.y ));
-		possible_fields.add(chessBoard.findComponentAt(location.x + dim.height, location.y ));
+		ArrayList<Component> possible_fields = getLevelFields(currentField,location);
+
+
 
 		//Component c_=  chessBoard.findComponentAt(location.x , location.y - dim.height);
 		ArrayList<JPanel> ret_fields = new ArrayList<>();
+		Dimension dim = currentField.getSize();
 
 		for(Component field : possible_fields){
 			if(field instanceof JPanel){
@@ -148,19 +153,40 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 				Point main_loc = (chessBoard.findComponentAt(location.x , location.y)).getParent().getLocation();
 				Point ad_loc = field.getParent().getLocation();
 
+				//ArrayList<Component> skip_fields = new ArrayList<>();
 				ArrayList<Component> skip_fields = new ArrayList<>();
-				if(main_loc.getY() < ad_loc.getY()){
-					skip_fields.add(chessBoard.findComponentAt(location.x , location.y + 2 * dim.height));
-				}else if(main_loc.getY() > ad_loc.getY()){
-					skip_fields.add(chessBoard.findComponentAt(location.x , location.y - 2 * dim.height));
-				}
-				if(main_loc.getX() > ad_loc.getX()){
-					skip_fields.add(chessBoard.findComponentAt(location.x - 2 * dim.width, location.y ));
-				}else if (main_loc.getX() < ad_loc.getX()){
-					skip_fields.add(chessBoard.findComponentAt(location.x + 2 * dim.width, location.y ));
+
+
+				switch(movement_mode){
+					case "straight" :
+						if(main_loc.getY() < ad_loc.getY()){
+							skip_fields.add(chessBoard.findComponentAt(location.x , location.y + 2 * dim.height));
+						}else if(main_loc.getY() > ad_loc.getY()){
+							skip_fields.add(chessBoard.findComponentAt(location.x , location.y - 2 * dim.height));
+						}
+						if(main_loc.getX() > ad_loc.getX()){
+							skip_fields.add(chessBoard.findComponentAt(location.x - 2 * dim.width, location.y ));
+						}else if (main_loc.getX() < ad_loc.getX()){
+							skip_fields.add(chessBoard.findComponentAt(location.x + 2 * dim.width, location.y ));
+						}
+					case "diagonal":
+						if(main_loc.getY() < ad_loc.getY() &&
+								main_loc.getX() < ad_loc.getX()){
+							skip_fields.add(chessBoard.findComponentAt(location.x + 2 * dim.width , location.y + 2 * dim.height));
+						}else if(main_loc.getY() > ad_loc.getY() &&
+								main_loc.getX() > ad_loc.getX()){
+							skip_fields.add(chessBoard.findComponentAt(location.x - 2 * dim.width, location.y - 2 * dim.height));
+						}
+						if(main_loc.getX() > ad_loc.getX() &&
+								main_loc.getY() < ad_loc.getY()){
+							skip_fields.add(chessBoard.findComponentAt(location.x - 2 * dim.width, location.y + 2 * dim.height ));
+						}else if (main_loc.getX() < ad_loc.getX() &&
+								main_loc.getY() > ad_loc.getY()){
+							skip_fields.add(chessBoard.findComponentAt(location.x + 2 * dim.width, location.y - 2 * dim.height));
+						}
 				}
 
-				Component ad = chessBoard.findComponentAt(location.x , location.y - 2 *dim.height);
+
 				for(Component skip : skip_fields){
 					if(skip instanceof JPanel){
 						(skip).setBackground(Color.green);
