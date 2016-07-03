@@ -26,8 +26,9 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 	JLayeredPane layeredPane;
 	JPanel chessBoard;
 	JLabel chessPiece;
-	int field_count = 81;
+	int field_count = 100;
 	String movement_mode = "free";
+	String field_mode ="classic";
 	int xAdjustment;
 	int yAdjustment;
 	Point old_loc;
@@ -47,7 +48,9 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 		//Add a chess board to the Layered Pane
 		chessBoard = new JPanel();
 		layeredPane.add(chessBoard, JLayeredPane.DEFAULT_LAYER);
-		chessBoard.setLayout( new GridLayout(9, 9) );
+		Integer root = (int)Math.sqrt(field_count);
+
+		chessBoard.setLayout( new GridLayout(root, root) );
 		chessBoard.setPreferredSize( boardSize );
 		chessBoard.setBounds(0, 0, boardSize.width, boardSize.height);
 
@@ -69,7 +72,6 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 
 		BufferedImage img_b = null;
 		BufferedImage img_w = null;
-
 		try {
 			img_b = ImageIO.read(new File("img/black.png"));
 			img_w = ImageIO.read(new File("img/white.jpg"));
@@ -83,24 +85,51 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 		ImageIcon icon_b = new ImageIcon(dimg_b);
 		ImageIcon icon_w = new ImageIcon(dimg_w);
 
+		createBoard(icon_b, icon_w);
 
 		//number of stones must be dependend on board type
-		for(int i = 0; i<18; i++){
-			JLabel piece_b = new JLabel(icon_b);
-			JPanel panel_b = (JPanel)chessBoard.getComponent(i);
-			panel_b.add(piece_b);
 
-			JLabel piece_w = new JLabel(icon_w);
-			JPanel panel_w = (JPanel)chessBoard.getComponent(field_count -1 - i);
-			panel_w.add(piece_w);
-		}
 	}
 
 	private void showField(){
 
 	}
 
+	private void createBoard(ImageIcon icon_b, ImageIcon  icon_w){
+		switch(field_mode){
+			case "renpaarden" :
 
+				for(int i = 0; i<Math.sqrt(field_count) * 2; i++){
+					JLabel piece_b = new JLabel(icon_b);
+					JPanel panel_b = (JPanel)chessBoard.getComponent(i);
+					panel_b.add(piece_b);
+
+					JLabel piece_w = new JLabel(icon_w);
+					JPanel panel_w = (JPanel)chessBoard.getComponent(field_count -1 - i);
+					panel_w.add(piece_w);
+				}
+			case "classic" :
+				int root = (int) Math.sqrt(field_count);
+				int linecount = root / 2;
+				for(int i = 0; i<root / 2 ; i++) {
+					for(int j = 0; j + i < linecount; j++){
+						JLabel piece_b = new JLabel(icon_b);
+						//algorithm to get the half pyramid formation for stones
+						int bCount = i + ((j ) * (int)Math.sqrt(field_count));
+						JPanel panel_b = (JPanel)chessBoard.getComponent(bCount);
+						panel_b.add(piece_b);
+
+
+						JLabel piece_w = new JLabel(icon_w);
+						JPanel panel_w = (JPanel)chessBoard.getComponent(field_count -1 - bCount);
+						panel_w.add(piece_w);
+					}
+
+
+				}
+		}
+
+	}
 
 
 
