@@ -35,7 +35,9 @@ public class Stone {
 		}
 	}
 
-
+	public boolean getAffiliation(){
+		return this.affiliation;
+	}
 
 
 	public Stone(boolean affiliation) {

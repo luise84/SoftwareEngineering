@@ -5,9 +5,11 @@ package game;
  */
 public class Field{
     private Stone[][] field;
+    private int field_count = 100;
 
-    public Field(Stone[][] fieldarray){
+    public Field(Stone[][] fieldarray, int field_count){
         this.field = fieldarray;
+        this.field_count = field_count;
 
     }
 
@@ -20,8 +22,22 @@ public class Field{
         else{
             return false;
         }
+    }
+    public int getFieldCount(){
+        return this.field_count;
+    }
+
+    public Stone checkForStone(int x, int y){
+        Stone ret = this.field[x][y];
+        if(ret != null){
+            return ret;
+        }
+        return null;
+    }
 
 
+    public Stone[][] getPlayField(){
+        return this.field;
     }
     /*
     stone must have the right combination of right movementtype and movedirection
@@ -63,7 +79,6 @@ public class Field{
     }
 
     private boolean endGame(){
-
         return true;
     }
 

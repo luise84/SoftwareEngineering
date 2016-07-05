@@ -20,15 +20,16 @@ import java.util.ArrayList;
  * Created by Luise on 23.06.2016.
  */
 public class View extends JFrame implements MouseListener,MouseMotionListener {
-	private Field fieldattr;
+	private Field playField;
 	private Attribute fieldAttribute;
-	private Stone[][] field;
 	JLayeredPane layeredPane;
-	JPanel chessBoard;
+	JPanel halmaBoard;
 	JLabel chessPiece;
-	int field_count = 100;
+	;
 	String movement_mode = "free";
 	String field_mode ="classic";
+
+	int field_count;
 	int xAdjustment;
 	int yAdjustment;
 	Point old_loc;
@@ -38,7 +39,6 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 	public View(){
 		Dimension boardSize = new Dimension(600, 600);
 
-		//  Use a Layered Pane for this this application
 		layeredPane = new JLayeredPane();
 		getContentPane().add(layeredPane);
 		layeredPane.setPreferredSize(boardSize);
@@ -46,18 +46,20 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 		layeredPane.addMouseMotionListener(this);
 
 		//Add a chess board to the Layered Pane
-		chessBoard = new JPanel();
-		layeredPane.add(chessBoard, JLayeredPane.DEFAULT_LAYER);
+		halmaBoard = new JPanel();
+		layeredPane.add(halmaBoard, JLayeredPane.DEFAULT_LAYER);
+
+		field_count = playField.getFieldCount();
 		Integer root = (int)Math.sqrt(field_count);
 
-		chessBoard.setLayout( new GridLayout(root, root) );
-		chessBoard.setPreferredSize( boardSize );
-		chessBoard.setBounds(0, 0, boardSize.width, boardSize.height);
+		halmaBoard.setLayout( new GridLayout(root, root) );
+		halmaBoard.setPreferredSize( boardSize );
+		halmaBoard.setBounds(0, 0, boardSize.width, boardSize.height);
 
 		for (int i = 0; i < field_count; i++) {
 			JPanel square = new JPanel( new BorderLayout() );
 			square.setBorder(BorderFactory.createLineBorder(Color.black));
-			chessBoard.add( square );
+			halmaBoard.add( square );
 
 			int row = (i / 8) % 2;
 			square.setBackground(fieldColor);
@@ -94,18 +96,37 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 	private void showField(){
 
 	}
-
 	private void createBoard(ImageIcon icon_b, ImageIcon  icon_w){
+		Stone[][] active_field = playField.getPlayField();
+		for(int i = 0; i < Math.sqrt(field_count); i++){
+			for(int j = 0; j < Math.sqrt(field_count); j++){
+				Stone temp = playField.checkForStone(i,j);
+				if(temp != null){
+					int bCount = i + ((j ) * (int)Math.sqrt(field_count));
+					if(temp.getAffiliation()){
+						JLabel piece_w = new JLabel(icon_w);
+						JPanel panel_w = (JPanel)halmaBoard.getComponent(field_count -1 - bCount);
+						panel_w.add(piece_w);
+					}else{
+						JLabel piece_b = new JLabel(icon_b);
+						JPanel panel_b = (JPanel)halmaBoard.getComponent(bCount);
+						panel_b.add(piece_b);
+					}
+				}
+			}
+		}
+
+/*
 		switch(field_mode){
 			case "renpaarden" :
 
 				for(int i = 0; i<Math.sqrt(field_count) * 2; i++){
 					JLabel piece_b = new JLabel(icon_b);
-					JPanel panel_b = (JPanel)chessBoard.getComponent(i);
+					JPanel panel_b = (JPanel)halmaBoard.getComponent(i);
 					panel_b.add(piece_b);
 
 					JLabel piece_w = new JLabel(icon_w);
-					JPanel panel_w = (JPanel)chessBoard.getComponent(field_count -1 - i);
+					JPanel panel_w = (JPanel)halmaBoard.getComponent(field_count -1 - i);
 					panel_w.add(piece_w);
 				}
 			case "classic" :
@@ -116,18 +137,19 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 						JLabel piece_b = new JLabel(icon_b);
 						//algorithm to get the half pyramid formation for stones
 						int bCount = i + ((j ) * (int)Math.sqrt(field_count));
-						JPanel panel_b = (JPanel)chessBoard.getComponent(bCount);
+						JPanel panel_b = (JPanel)halmaBoard.getComponent(bCount);
 						panel_b.add(piece_b);
 
 
 						JLabel piece_w = new JLabel(icon_w);
-						JPanel panel_w = (JPanel)chessBoard.getComponent(field_count -1 - bCount);
+						JPanel panel_w = (JPanel)halmaBoard.getComponent(field_count -1 - bCount);
 						panel_w.add(piece_w);
 					}
 
 
 				}
 		}
+		*/
 
 	}
 
@@ -147,24 +169,24 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 		Dimension dim = currentField.getSize();
 		switch(movement_mode){
 			case "straight" :
-				ret_fields.add(chessBoard.findComponentAt(location.x , location.y - dim.height));
-				ret_fields.add(chessBoard.findComponentAt(location.x , location.y + dim.height));
-				ret_fields.add(chessBoard.findComponentAt(location.x - dim.width, location.y ));
-				ret_fields.add(chessBoard.findComponentAt(location.x + dim.height, location.y ));
+				ret_fields.add(halmaBoard.findComponentAt(location.x , location.y - dim.height));
+				ret_fields.add(halmaBoard.findComponentAt(location.x , location.y + dim.height));
+				ret_fields.add(halmaBoard.findComponentAt(location.x - dim.width, location.y ));
+				ret_fields.add(halmaBoard.findComponentAt(location.x + dim.height, location.y ));
 			case "diagonal" :
-				ret_fields.add(chessBoard.findComponentAt(location.x + dim.width , location.y + dim.height));
-				ret_fields.add(chessBoard.findComponentAt(location.x - dim.width, location.y + dim.height));
-				ret_fields.add(chessBoard.findComponentAt(location.x - dim.width, location.y - dim.height));
-				ret_fields.add(chessBoard.findComponentAt(location.x + dim.height, location.y - dim.height));
+				ret_fields.add(halmaBoard.findComponentAt(location.x + dim.width , location.y + dim.height));
+				ret_fields.add(halmaBoard.findComponentAt(location.x - dim.width, location.y + dim.height));
+				ret_fields.add(halmaBoard.findComponentAt(location.x - dim.width, location.y - dim.height));
+				ret_fields.add(halmaBoard.findComponentAt(location.x + dim.height, location.y - dim.height));
 			case "free" :
-				ret_fields.add(chessBoard.findComponentAt(location.x , location.y - dim.height));
-				ret_fields.add(chessBoard.findComponentAt(location.x , location.y + dim.height));
-				ret_fields.add(chessBoard.findComponentAt(location.x - dim.width, location.y ));
-				ret_fields.add(chessBoard.findComponentAt(location.x + dim.height, location.y ));
-				ret_fields.add(chessBoard.findComponentAt(location.x + dim.width , location.y + dim.height));
-				ret_fields.add(chessBoard.findComponentAt(location.x - dim.width, location.y + dim.height));
-				ret_fields.add(chessBoard.findComponentAt(location.x - dim.width, location.y - dim.height));
-				ret_fields.add(chessBoard.findComponentAt(location.x + dim.height, location.y - dim.height));
+				ret_fields.add(halmaBoard.findComponentAt(location.x , location.y - dim.height));
+				ret_fields.add(halmaBoard.findComponentAt(location.x , location.y + dim.height));
+				ret_fields.add(halmaBoard.findComponentAt(location.x - dim.width, location.y ));
+				ret_fields.add(halmaBoard.findComponentAt(location.x + dim.height, location.y ));
+				ret_fields.add(halmaBoard.findComponentAt(location.x + dim.width , location.y + dim.height));
+				ret_fields.add(halmaBoard.findComponentAt(location.x - dim.width, location.y + dim.height));
+				ret_fields.add(halmaBoard.findComponentAt(location.x - dim.width, location.y - dim.height));
+				ret_fields.add(halmaBoard.findComponentAt(location.x + dim.height, location.y - dim.height));
 		}
 
 		return ret_fields;
@@ -188,7 +210,7 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 				ret_fields.add((JPanel)field);
 			}else if (field instanceof JLabel){
 				//if there already is another piece you can skip @todo recursion??
-				Point main_loc = (chessBoard.findComponentAt(location.x , location.y)).getParent().getLocation();
+				Point main_loc = (halmaBoard.findComponentAt(location.x , location.y)).getParent().getLocation();
 				Point ad_loc = field.getParent().getLocation();
 
 				//ArrayList<Component> skip_fields = new ArrayList<>();
@@ -198,58 +220,58 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 				switch(movement_mode){
 					case "straight" :
 						if(main_loc.getY() < ad_loc.getY()){
-							skip_fields.add(chessBoard.findComponentAt(location.x , location.y + 2 * dim.height));
+							skip_fields.add(halmaBoard.findComponentAt(location.x , location.y + 2 * dim.height));
 						}else if(main_loc.getY() > ad_loc.getY()){
-							skip_fields.add(chessBoard.findComponentAt(location.x , location.y - 2 * dim.height));
+							skip_fields.add(halmaBoard.findComponentAt(location.x , location.y - 2 * dim.height));
 						}
 						if(main_loc.getX() > ad_loc.getX()){
-							skip_fields.add(chessBoard.findComponentAt(location.x - 2 * dim.width, location.y ));
+							skip_fields.add(halmaBoard.findComponentAt(location.x - 2 * dim.width, location.y ));
 						}else if (main_loc.getX() < ad_loc.getX()){
-							skip_fields.add(chessBoard.findComponentAt(location.x + 2 * dim.width, location.y ));
+							skip_fields.add(halmaBoard.findComponentAt(location.x + 2 * dim.width, location.y ));
 						}
 					case "diagonal":
 						if(main_loc.getY() < ad_loc.getY() &&
 								main_loc.getX() < ad_loc.getX()){
-							skip_fields.add(chessBoard.findComponentAt(location.x + 2 * dim.width , location.y + 2 * dim.height));
+							skip_fields.add(halmaBoard.findComponentAt(location.x + 2 * dim.width , location.y + 2 * dim.height));
 						}else if(main_loc.getY() > ad_loc.getY() &&
 								main_loc.getX() > ad_loc.getX()){
-							skip_fields.add(chessBoard.findComponentAt(location.x - 2 * dim.width, location.y - 2 * dim.height));
+							skip_fields.add(halmaBoard.findComponentAt(location.x - 2 * dim.width, location.y - 2 * dim.height));
 						}
 						if(main_loc.getX() > ad_loc.getX() &&
 								main_loc.getY() < ad_loc.getY()){
-							skip_fields.add(chessBoard.findComponentAt(location.x - 2 * dim.width, location.y + 2 * dim.height ));
+							skip_fields.add(halmaBoard.findComponentAt(location.x - 2 * dim.width, location.y + 2 * dim.height ));
 						}else if (main_loc.getX() < ad_loc.getX() &&
 								main_loc.getY() > ad_loc.getY()){
-							skip_fields.add(chessBoard.findComponentAt(location.x + 2 * dim.width, location.y - 2 * dim.height));
+							skip_fields.add(halmaBoard.findComponentAt(location.x + 2 * dim.width, location.y - 2 * dim.height));
 						}
 					case "free" :
 						if(main_loc.getY() < ad_loc.getY()&&
 								!(main_loc.getX() != ad_loc.getX())){
-							skip_fields.add(chessBoard.findComponentAt(location.x , location.y + 2 * dim.height));
+							skip_fields.add(halmaBoard.findComponentAt(location.x , location.y + 2 * dim.height));
 						}else if(main_loc.getY() > ad_loc.getY() &&
 								!(main_loc.getX() != ad_loc.getX())){
-							skip_fields.add(chessBoard.findComponentAt(location.x , location.y - 2 * dim.height));
+							skip_fields.add(halmaBoard.findComponentAt(location.x , location.y - 2 * dim.height));
 						}
 						if(main_loc.getX() > ad_loc.getX() &&
 								!(ad_loc.getY() != main_loc.getY())){
-							skip_fields.add(chessBoard.findComponentAt(location.x - 2 * dim.width, location.y ));
+							skip_fields.add(halmaBoard.findComponentAt(location.x - 2 * dim.width, location.y ));
 						}else if (main_loc.getX() < ad_loc.getX() &&
 								!(main_loc.getY() != ad_loc.getY())){
-							skip_fields.add(chessBoard.findComponentAt(location.x + 2 * dim.width, location.y ));
+							skip_fields.add(halmaBoard.findComponentAt(location.x + 2 * dim.width, location.y ));
 						}
 						if(main_loc.getY() < ad_loc.getY() &&
 								main_loc.getX() < ad_loc.getX()){
-							skip_fields.add(chessBoard.findComponentAt(location.x + 2 * dim.width , location.y + 2 * dim.height));
+							skip_fields.add(halmaBoard.findComponentAt(location.x + 2 * dim.width , location.y + 2 * dim.height));
 						}else if(main_loc.getY() > ad_loc.getY() &&
 								main_loc.getX() > ad_loc.getX()){
-							skip_fields.add(chessBoard.findComponentAt(location.x - 2 * dim.width, location.y - 2 * dim.height));
+							skip_fields.add(halmaBoard.findComponentAt(location.x - 2 * dim.width, location.y - 2 * dim.height));
 						}
 						if(main_loc.getX() > ad_loc.getX() &&
 								main_loc.getY() < ad_loc.getY()){
-							skip_fields.add(chessBoard.findComponentAt(location.x - 2 * dim.width, location.y + 2 * dim.height ));
+							skip_fields.add(halmaBoard.findComponentAt(location.x - 2 * dim.width, location.y + 2 * dim.height ));
 						}else if (main_loc.getX() < ad_loc.getX() &&
 								main_loc.getY() > ad_loc.getY()){
-							skip_fields.add(chessBoard.findComponentAt(location.x + 2 * dim.width, location.y - 2 * dim.height));
+							skip_fields.add(halmaBoard.findComponentAt(location.x + 2 * dim.width, location.y - 2 * dim.height));
 						}
 				}
 
@@ -266,9 +288,10 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 	}
 
 	@Override
+	//@todo update the field by controller input then update the board
 	public void mousePressed(MouseEvent e) {
 		chessPiece = null;
-		Component c =  chessBoard.findComponentAt(e.getX(), e.getY());
+		Component c =  halmaBoard.findComponentAt(e.getX(), e.getY());
 		if (c instanceof JPanel){
 			return;
 		}
@@ -303,11 +326,11 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 		}
 
 		chessPiece.setVisible(false);
-		Component c =  chessBoard.findComponentAt(e.getX(), e.getY());
+		Component c =  halmaBoard.findComponentAt(e.getX(), e.getY());
 
 		//if there is another stone return the dragged stone to its initial place
 		if (c instanceof JLabel){
-			JPanel old_panel = (JPanel)chessBoard.findComponentAt(old_loc);
+			JPanel old_panel = (JPanel)halmaBoard.findComponentAt(old_loc);
 			old_panel.add(chessPiece);
 		}
 		else {
@@ -321,7 +344,7 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 				Container parent = (Container)c;
 				parent.add( chessPiece );
 			}else{
-				JPanel old_panel = (JPanel)chessBoard.findComponentAt(old_loc);
+				JPanel old_panel = (JPanel)halmaBoard.findComponentAt(old_loc);
 				old_panel.add(chessPiece);
 			}
 

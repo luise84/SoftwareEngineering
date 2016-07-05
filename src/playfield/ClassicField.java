@@ -46,7 +46,7 @@ public class ClassicField implements IPlayField {
 			}
 		}
 
-		Field classic = new Field(startFormation);
+		Field classic = new Field(startFormation,100);
 		return classic;
 	}
 }
