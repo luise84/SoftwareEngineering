@@ -1,8 +1,11 @@
 package game;
 
 import ai.AIPlayer;
+import playfield.ClassicField;
 import playfield.GameSetup;
+import playfield.RenpaardenField;
 
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 
 /**
@@ -36,13 +39,17 @@ public class GameController {
 	}
 
 
-
-
-
 	private static void startGame(){
-		field = gamesetup.chooseField();
-		level = gamesetup.chooseLevel();
-
+		//field = gamesetup.chooseField();
+		//level = gamesetup.chooseLevel();
+		field = new RenpaardenField(36).createField();
+		level = "free";
+		View frame = new View(field);
+		frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE );
+		frame.pack();
+		frame.setResizable(true);
+		frame.setLocationRelativeTo( null );
+		frame.setVisible(true);
 
 	}
 	private void setup(){}

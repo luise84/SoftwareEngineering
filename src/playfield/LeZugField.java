@@ -39,7 +39,7 @@ public class LeZugField implements IPlayField {
 			}
 		}
 
-		Field lezug = new Field(startFormation);
+		Field lezug = new Field(startFormation,100);
 		return lezug;
 	}
 }

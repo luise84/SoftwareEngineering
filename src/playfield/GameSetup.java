@@ -25,7 +25,7 @@ public class GameSetup {
 		if(fieldname != null){
 			switch(fieldname){
 				case "classic":
-					playfield = new ClassicField();
+					playfield = new ClassicField(100);
 					field = playfield.createField();
 					break;
 				case "le zug":
@@ -33,7 +33,7 @@ public class GameSetup {
 					field = playfield.createField();
 					break;
 				case "renpaarden":
-					playfield = new RenpaardenField();
+					playfield = new RenpaardenField(100);
 					field = playfield.createField();
 					break;
 			}
@@ -50,8 +50,11 @@ public class GameSetup {
 		System.out.println("Gib 'Free' ein: alle Bewegungsrichtungen nach vorne und hinten erlaubt. ");
 		System.out.println("Gib 'Diagonal Forward' ein: nur diagonale Bewegungsrichtungen nach vorne erlaubt.");
 		String level = readUserInput(leveltypes);
-		if(!level.equals(null))		return level;
-		else chooseLevel();
+		if(!level.equals(null)){
+			return level;
+		} else{
+			chooseLevel();
+		}
 		return null;
 
 
