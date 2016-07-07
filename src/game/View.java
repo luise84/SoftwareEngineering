@@ -25,7 +25,6 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 	JLayeredPane layeredPane;
 	JPanel halmaBoard;
 	JLabel chessPiece;
-	;
 	String movement_mode = "free";
 	String field_mode ="classic";
 
@@ -36,7 +35,11 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 	Color fieldColor = Color.ORANGE;
 	ArrayList<JPanel> allowed_fields = new ArrayList<>();
 
-	public View(){
+	public View(Field playField){
+		this.playField = playField;
+		setupView();
+	}
+	private void setupView(){
 		Dimension boardSize = new Dimension(600, 600);
 
 		layeredPane = new JLayeredPane();
@@ -60,14 +63,7 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 			JPanel square = new JPanel( new BorderLayout() );
 			square.setBorder(BorderFactory.createLineBorder(Color.black));
 			halmaBoard.add( square );
-
-			int row = (i / 8) % 2;
 			square.setBackground(fieldColor);
-			/*if (row == 0)
-				square.setBackground( i % 2 == 0 ? Color.YELLOW : Color.ORANGE);
-			else
-				square.setBackground( i % 2 == 0 ? Color.ORANGE: Color.YELLOW);
-				*/
 		}
 
 		//@todo at this point the own stone class might be needed
@@ -89,27 +85,29 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 
 		createBoard(icon_b, icon_w);
 
-		//number of stones must be dependend on board type
-
 	}
+
 
 	private void showField(){
 
 	}
 	private void createBoard(ImageIcon icon_b, ImageIcon  icon_w){
-		Stone[][] active_field = playField.getPlayField();
-		for(int i = 0; i < Math.sqrt(field_count); i++){
-			for(int j = 0; j < Math.sqrt(field_count); j++){
+		//Stone[][] active_field = playField.getPlayField();
+		int root = (int)Math.sqrt(field_count);
+		for(int i = 0; i < root; i++){
+			for(int j = 0; j < root; j++){
 				Stone temp = playField.checkForStone(i,j);
 				if(temp != null){
 					int bCount = i + ((j ) * (int)Math.sqrt(field_count));
 					if(temp.getAffiliation()){
 						JLabel piece_w = new JLabel(icon_w);
-						JPanel panel_w = (JPanel)halmaBoard.getComponent(field_count -1 - bCount);
+						JPanel panel_w = (JPanel)halmaBoard.getComponent(bCount);
+						System.out.println(panel_w);
 						panel_w.add(piece_w);
 					}else{
 						JLabel piece_b = new JLabel(icon_b);
 						JPanel panel_b = (JPanel)halmaBoard.getComponent(bCount);
+						System.out.println(panel_b);
 						panel_b.add(piece_b);
 					}
 				}
@@ -370,12 +368,7 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 
 	}
 	public static void main(String[] args){
-		View frame = new View();
-		frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE );
-		frame.pack();
-		frame.setResizable(true);
-		frame.setLocationRelativeTo( null );
-		frame.setVisible(true);
+
 
 	}
 

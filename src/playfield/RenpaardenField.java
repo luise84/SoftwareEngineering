@@ -10,13 +10,24 @@ import game.Stone;
  */
 public class RenpaardenField implements IPlayField {
 	Stone[][] startFormation;
+	int fieldCount;
 
-	public RenpaardenField() {
-		this.startFormation = new Stone[9][9];
+	public RenpaardenField(int fieldCount) {
+		this.fieldCount = fieldCount;
+		int root = (int)Math.sqrt(this.fieldCount);
+		this.startFormation = new Stone[root][root];
 	}
 
 	@Override
 	public Field createField() {
+		int root = (int)Math.sqrt(this.fieldCount);
+		for(int i = 0; i<root; i++){
+			startFormation[i][0] = new Stone(false);
+			startFormation[i][1] = new Stone(false);
+			startFormation[root-1- i][root-1] = new Stone(true);
+			startFormation[root-1- i][root-2] = new Stone(true);
+		}
+/*
 		for(int i=0; i<startFormation.length; i++){
 			for(int j=0; j<startFormation[i].length; j++){
 				if(i<2)
@@ -27,8 +38,8 @@ public class RenpaardenField implements IPlayField {
 					startFormation[i][j] = new Stone(true);
 			}
 		}
-
-		Field renpaarden = new Field(this.startFormation,81);
+*/
+		Field renpaarden = new Field(this.startFormation,this.fieldCount);
 		return renpaarden;
 	}
 }
