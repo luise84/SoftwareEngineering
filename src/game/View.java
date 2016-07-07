@@ -4,16 +4,13 @@ import gameConfigurations.Attribute;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -32,11 +29,13 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 	int xAdjustment;
 	int yAdjustment;
 	Point old_loc;
-	Color fieldColor = Color.ORANGE;
+	Color fieldColor;
 	ArrayList<JPanel> allowed_fields = new ArrayList<>();
 
 	public View(Field playField){
 		this.playField = playField;
+		this.fieldAttribute = new Attribute();
+		this.fieldColor = fieldAttribute.fieldColor;
 		setupView();
 	}
 	private void setupView(){
@@ -71,8 +70,8 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 		BufferedImage img_b = null;
 		BufferedImage img_w = null;
 		try {
-			img_b = ImageIO.read(new File("img/black.png"));
-			img_w = ImageIO.read(new File("img/white.jpg"));
+			img_b = ImageIO.read(new File(fieldAttribute.aiStoneImagePath));//("img/black.png"));
+			img_w = ImageIO.read(new File(fieldAttribute.playerStoneImagePath));//("img/white.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -195,9 +194,6 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 
 		//hardcoded allowed moves for gamemode straight
 		ArrayList<Component> possible_fields = getLevelFields(currentField,location);
-
-
-
 		//Component c_=  chessBoard.findComponentAt(location.x , location.y - dim.height);
 		ArrayList<JPanel> ret_fields = new ArrayList<>();
 		Dimension dim = currentField.getSize();
@@ -300,7 +296,6 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 
 		allowed_fields = getAllowedMoves(field,new Point(e.getX(),e.getY()));
 
-
 		// save the initial position in order to reset if necessary
 		old_loc = parentLocation;
 		xAdjustment = parentLocation.x - e.getX();
@@ -310,6 +305,8 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 		chessPiece.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
 		chessPiece.setSize(chessPiece.getWidth(), chessPiece.getHeight());
 		layeredPane.add(chessPiece, JLayeredPane.DRAG_LAYER);
+
+
 
 	}
 
@@ -367,13 +364,14 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 	public void mouseExited(MouseEvent e) {
 
 	}
-	public static void main(String[] args){
 
-
-	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
+
+	}
+	public static void main(String[] args){
+
 
 	}
 }
