@@ -1,6 +1,5 @@
 // Generated from C:\Users\Luise\01Luise_Ordner\StudiumMI\Master\semester1\SE\Uebung4_Semesterprojekt\SoftwareEngineering\src\gameConfigurations\Attributes.g4 by ANTLR 4.5.3
 package gameConfigurations;
-
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.atn.ATN;
 import org.antlr.v4.runtime.atn.ATNDeserializer;
@@ -396,12 +395,8 @@ public class AttributesParser extends Parser {
 	}
 
 	public static class PathContext extends ParserRuleContext {
-		public List<TerminalNode> Folder() { return getTokens(AttributesParser.Folder); }
-		public TerminalNode Folder(int i) {
-			return getToken(AttributesParser.Folder, i);
-		}
+		public TerminalNode Folder() { return getToken(AttributesParser.Folder, 0); }
 		public TerminalNode File() { return getToken(AttributesParser.File, 0); }
-		public TerminalNode Drive() { return getToken(AttributesParser.Drive, 0); }
 		public PathContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -419,52 +414,14 @@ public class AttributesParser extends Parser {
 	public final PathContext path() throws RecognitionException {
 		PathContext _localctx = new PathContext(_ctx, getState());
 		enterRule(_localctx, 8, RULE_path);
-		int _la;
 		try {
-			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(72);
-			_la = _input.LA(1);
-			if (_la==Drive) {
-				{
-				setState(71);
-				match(Drive);
-				}
-			}
-
-			setState(75);
-			_la = _input.LA(1);
-			if (_la==T__5) {
-				{
-				setState(74);
-				match(T__5);
-				}
-			}
-
-			setState(77);
+			setState(71);
 			match(Folder);
-			setState(82);
-			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,8,_ctx);
-			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-				if ( _alt==1 ) {
-					{
-					{
-					setState(78);
-					match(T__5);
-					setState(79);
-					match(Folder);
-					}
-					} 
-				}
-				setState(84);
-				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,8,_ctx);
-			}
-			setState(85);
+			setState(72);
 			match(T__5);
-			setState(86);
+			setState(73);
 			match(File);
 			}
 		}
@@ -480,29 +437,26 @@ public class AttributesParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\20[\4\2\t\2\4\3\t"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\20N\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\4\6\t\6\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\3\3\3\7\3\26"+
 		"\n\3\f\3\16\3\31\13\3\3\3\3\3\7\3\35\n\3\f\3\16\3 \13\3\3\3\3\3\3\3\3"+
 		"\3\3\3\3\3\3\3\3\3\3\4\3\4\7\4,\n\4\f\4\16\4/\13\4\3\4\3\4\7\4\63\n\4"+
 		"\f\4\16\4\66\13\4\3\4\3\4\3\5\3\5\7\5<\n\5\f\5\16\5?\13\5\3\5\3\5\7\5"+
-		"C\n\5\f\5\16\5F\13\5\3\5\3\5\3\6\5\6K\n\6\3\6\5\6N\n\6\3\6\3\6\3\6\7\6"+
-		"S\n\6\f\6\16\6V\13\6\3\6\3\6\3\6\3\6\2\2\7\2\4\6\b\n\2\2^\2\f\3\2\2\2"+
-		"\4\23\3\2\2\2\6)\3\2\2\2\b9\3\2\2\2\nJ\3\2\2\2\f\r\5\4\3\2\r\16\7\t\2"+
-		"\2\16\17\5\6\4\2\17\20\7\t\2\2\20\21\5\b\5\2\21\22\7\2\2\3\22\3\3\2\2"+
-		"\2\23\27\7\3\2\2\24\26\7\20\2\2\25\24\3\2\2\2\26\31\3\2\2\2\27\25\3\2"+
-		"\2\2\27\30\3\2\2\2\30\32\3\2\2\2\31\27\3\2\2\2\32\36\7\17\2\2\33\35\7"+
-		"\20\2\2\34\33\3\2\2\2\35 \3\2\2\2\36\34\3\2\2\2\36\37\3\2\2\2\37!\3\2"+
-		"\2\2 \36\3\2\2\2!\"\7\4\2\2\"#\7\n\2\2#$\7\13\2\2$%\7\n\2\2%&\7\13\2\2"+
-		"&\'\7\n\2\2\'(\7\5\2\2(\5\3\2\2\2)-\7\6\2\2*,\7\20\2\2+*\3\2\2\2,/\3\2"+
-		"\2\2-+\3\2\2\2-.\3\2\2\2.\60\3\2\2\2/-\3\2\2\2\60\64\7\17\2\2\61\63\7"+
-		"\20\2\2\62\61\3\2\2\2\63\66\3\2\2\2\64\62\3\2\2\2\64\65\3\2\2\2\65\67"+
-		"\3\2\2\2\66\64\3\2\2\2\678\5\n\6\28\7\3\2\2\29=\7\7\2\2:<\7\20\2\2;:\3"+
-		"\2\2\2<?\3\2\2\2=;\3\2\2\2=>\3\2\2\2>@\3\2\2\2?=\3\2\2\2@D\7\17\2\2AC"+
-		"\7\20\2\2BA\3\2\2\2CF\3\2\2\2DB\3\2\2\2DE\3\2\2\2EG\3\2\2\2FD\3\2\2\2"+
-		"GH\5\n\6\2H\t\3\2\2\2IK\7\16\2\2JI\3\2\2\2JK\3\2\2\2KM\3\2\2\2LN\7\b\2"+
-		"\2ML\3\2\2\2MN\3\2\2\2NO\3\2\2\2OT\7\f\2\2PQ\7\b\2\2QS\7\f\2\2RP\3\2\2"+
-		"\2SV\3\2\2\2TR\3\2\2\2TU\3\2\2\2UW\3\2\2\2VT\3\2\2\2WX\7\b\2\2XY\7\r\2"+
-		"\2Y\13\3\2\2\2\13\27\36-\64=DJMT";
+		"C\n\5\f\5\16\5F\13\5\3\5\3\5\3\6\3\6\3\6\3\6\3\6\2\2\7\2\4\6\b\n\2\2N"+
+		"\2\f\3\2\2\2\4\23\3\2\2\2\6)\3\2\2\2\b9\3\2\2\2\nI\3\2\2\2\f\r\5\4\3\2"+
+		"\r\16\7\t\2\2\16\17\5\6\4\2\17\20\7\t\2\2\20\21\5\b\5\2\21\22\7\2\2\3"+
+		"\22\3\3\2\2\2\23\27\7\3\2\2\24\26\7\20\2\2\25\24\3\2\2\2\26\31\3\2\2\2"+
+		"\27\25\3\2\2\2\27\30\3\2\2\2\30\32\3\2\2\2\31\27\3\2\2\2\32\36\7\17\2"+
+		"\2\33\35\7\20\2\2\34\33\3\2\2\2\35 \3\2\2\2\36\34\3\2\2\2\36\37\3\2\2"+
+		"\2\37!\3\2\2\2 \36\3\2\2\2!\"\7\4\2\2\"#\7\n\2\2#$\7\13\2\2$%\7\n\2\2"+
+		"%&\7\13\2\2&\'\7\n\2\2\'(\7\5\2\2(\5\3\2\2\2)-\7\6\2\2*,\7\20\2\2+*\3"+
+		"\2\2\2,/\3\2\2\2-+\3\2\2\2-.\3\2\2\2.\60\3\2\2\2/-\3\2\2\2\60\64\7\17"+
+		"\2\2\61\63\7\20\2\2\62\61\3\2\2\2\63\66\3\2\2\2\64\62\3\2\2\2\64\65\3"+
+		"\2\2\2\65\67\3\2\2\2\66\64\3\2\2\2\678\5\n\6\28\7\3\2\2\29=\7\7\2\2:<"+
+		"\7\20\2\2;:\3\2\2\2<?\3\2\2\2=;\3\2\2\2=>\3\2\2\2>@\3\2\2\2?=\3\2\2\2"+
+		"@D\7\17\2\2AC\7\20\2\2BA\3\2\2\2CF\3\2\2\2DB\3\2\2\2DE\3\2\2\2EG\3\2\2"+
+		"\2FD\3\2\2\2GH\5\n\6\2H\t\3\2\2\2IJ\7\f\2\2JK\7\b\2\2KL\7\r\2\2L\13\3"+
+		"\2\2\2\b\27\36-\64=D";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

@@ -5,7 +5,7 @@ color: 'Spielfeldfarbe' Whitespace* Separator Whitespace* 'RGB(' Value Comma Val
 computerplayer: 'Bildpfad des Computerspielers' Whitespace* Separator Whitespace* path;
 player: 'Bildpfad des Spielers' Whitespace* Separator Whitespace* path;
 
-path: Drive? '\\'? Folder ('\\' Folder)* '\\' File;
+path:  Folder '\\' File;
 
 NEWLINE: [\r\n]+;
 Value: [0-9]+;
