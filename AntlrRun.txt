@@ -1,0 +1,14 @@
+1. attributes.txt schreiben und speichern
+2. Attributes.g4 schreiben und speichern 
+3. Antlr ausführen: java -jar C:\Javalib\antlr-4.5.3-complete.jar
+4. cd C:\Javalib\antlr4-4.5.3 oder cd C:\Javalib
+5. Shortcuts einstellen: C:\Javalib> doskey antlr4=java org.antlr.v4.Tool $*
+doskey grun =java org.antlr.v4.runtime.misc.TestRig $*
+
+6. g4 ANTLR-Klassen generieren:  (cd <Pfad zu g4-datei>): java -jar C:\Javalib\antlr-4.5.3-complete.jar <Pfad zu g4-datei>\Attributes.g4
+7. Kompilieren: (cd <Pfad zu g4-datei>): javac <Pfad zu g4-datei>\Attributes*.java
+8. Testen: cd <Pfad zu g4-datei> und dann: grun Attributes prog -gui oder grun Attributes file -tree attributes.txt
+
+Antlr4-jar zum Projekt hinzufügen: Click aufs Projekt in IntelliJ und F4, jar Datei auswählen
+
+! bei jeder Änderung der .g4 müssen ANTLR-Klassen gelöscht, neu generiert und kompiliert werden!
