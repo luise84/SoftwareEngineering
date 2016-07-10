@@ -1,5 +1,6 @@
 package game;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
 import gameConfigurations.Attribute;
 
 import javax.imageio.ImageIO;
@@ -19,11 +20,15 @@ import java.util.ArrayList;
 public class View extends JFrame implements MouseListener,MouseMotionListener {
 	private Field playField;
 	private Attribute fieldAttribute;
+	private GameController controller;
 	JLayeredPane layeredPane;
 	JPanel halmaBoard;
 	JLabel chessPiece;
-	String movement_mode = "free";
+	String movement_mode;
 	String field_mode ="classic";
+	Stone temp;
+	private boolean user_enabled = false;
+
 
 	int field_count;
 	int xAdjustment;
@@ -32,12 +37,18 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 	Color fieldColor;
 	ArrayList<JPanel> allowed_fields = new ArrayList<>();
 
-	public View(Field playField){
+	public View(Field playField, GameController controller){
 		this.playField = playField;
 		this.fieldAttribute = new Attribute();
+		this.movement_mode = this.playField.getMovementType();
 		this.fieldColor = fieldAttribute.fieldColor;
+		this.controller = controller;
 		setupView();
 	}
+	public void enableUserInput(boolean user_enabled){
+		this.user_enabled = user_enabled;
+	}
+
 	private void setupView(){
 		Dimension boardSize = new Dimension(600, 600);
 
@@ -65,8 +76,6 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 			square.setBackground(fieldColor);
 		}
 
-		//@todo at this point the own stone class might be needed
-
 		BufferedImage img_b = null;
 		BufferedImage img_w = null;
 		try {
@@ -82,14 +91,44 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 		ImageIcon icon_b = new ImageIcon(dimg_b);
 		ImageIcon icon_w = new ImageIcon(dimg_w);
 
+
 		createBoard(icon_b, icon_w);
 
 	}
+	public void updateView(){
+		BufferedImage img_b = null;
+		BufferedImage img_w = null;
+		try {
+			img_b = ImageIO.read(new File(fieldAttribute.aiStoneImagePath));//("img/black.png"));
+			img_w = ImageIO.read(new File(fieldAttribute.playerStoneImagePath));//("img/white.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
+		Image dimg_b = img_b.getScaledInstance(36, -1, Image.SCALE_SMOOTH);
+		Image dimg_w = img_w.getScaledInstance(36, -1, Image.SCALE_SMOOTH);
+		//JLabel piece = new JLabel(new ImageIcon("img/black.png"));
+		ImageIcon icon_b = new ImageIcon(dimg_b);
+		ImageIcon icon_w = new ImageIcon(dimg_w);
+
+		emptyBoard();
+		createBoard(icon_b, icon_w);
+	}
 
 	private void showField(){
 
 	}
+	private void emptyBoard(){
+		int root = (int)Math.sqrt(field_count);
+		for(int i = 0; i < root; i++){
+			for(int j = 0; j < root; j++){
+				int bCount = i + ((j ) * (int)Math.sqrt(field_count));
+				JPanel c = (JPanel)halmaBoard.getComponent(bCount);
+				c.removeAll();
+			}
+		}
+	}
+
 	private void createBoard(ImageIcon icon_b, ImageIcon  icon_w){
 		//Stone[][] active_field = playField.getPlayField();
 		int root = (int)Math.sqrt(field_count);
@@ -101,60 +140,15 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 					if(temp.getAffiliation()){
 						JLabel piece_w = new JLabel(icon_w);
 						JPanel panel_w = (JPanel)halmaBoard.getComponent(bCount);
-						System.out.println(panel_w);
 						panel_w.add(piece_w);
 					}else{
 						JLabel piece_b = new JLabel(icon_b);
 						JPanel panel_b = (JPanel)halmaBoard.getComponent(bCount);
-						System.out.println(panel_b);
 						panel_b.add(piece_b);
 					}
 				}
 			}
 		}
-
-/*
-		switch(field_mode){
-			case "renpaarden" :
-
-				for(int i = 0; i<Math.sqrt(field_count) * 2; i++){
-					JLabel piece_b = new JLabel(icon_b);
-					JPanel panel_b = (JPanel)halmaBoard.getComponent(i);
-					panel_b.add(piece_b);
-
-					JLabel piece_w = new JLabel(icon_w);
-					JPanel panel_w = (JPanel)halmaBoard.getComponent(field_count -1 - i);
-					panel_w.add(piece_w);
-				}
-			case "classic" :
-				int root = (int) Math.sqrt(field_count);
-				int linecount = root / 2;
-				for(int i = 0; i<root / 2 ; i++) {
-					for(int j = 0; j + i < linecount; j++){
-						JLabel piece_b = new JLabel(icon_b);
-						//algorithm to get the half pyramid formation for stones
-						int bCount = i + ((j ) * (int)Math.sqrt(field_count));
-						JPanel panel_b = (JPanel)halmaBoard.getComponent(bCount);
-						panel_b.add(piece_b);
-
-
-						JLabel piece_w = new JLabel(icon_w);
-						JPanel panel_w = (JPanel)halmaBoard.getComponent(field_count -1 - bCount);
-						panel_w.add(piece_w);
-					}
-
-
-				}
-		}
-		*/
-
-	}
-
-
-
-
-	private boolean setPosition(Stone stone, int x, int y){
-		return true;
 	}
 
 	@Override
@@ -170,11 +164,13 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 				ret_fields.add(halmaBoard.findComponentAt(location.x , location.y + dim.height));
 				ret_fields.add(halmaBoard.findComponentAt(location.x - dim.width, location.y ));
 				ret_fields.add(halmaBoard.findComponentAt(location.x + dim.height, location.y ));
+				break;
 			case "diagonal" :
 				ret_fields.add(halmaBoard.findComponentAt(location.x + dim.width , location.y + dim.height));
 				ret_fields.add(halmaBoard.findComponentAt(location.x - dim.width, location.y + dim.height));
 				ret_fields.add(halmaBoard.findComponentAt(location.x - dim.width, location.y - dim.height));
 				ret_fields.add(halmaBoard.findComponentAt(location.x + dim.height, location.y - dim.height));
+				break;
 			case "free" :
 				ret_fields.add(halmaBoard.findComponentAt(location.x , location.y - dim.height));
 				ret_fields.add(halmaBoard.findComponentAt(location.x , location.y + dim.height));
@@ -184,6 +180,7 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 				ret_fields.add(halmaBoard.findComponentAt(location.x - dim.width, location.y + dim.height));
 				ret_fields.add(halmaBoard.findComponentAt(location.x - dim.width, location.y - dim.height));
 				ret_fields.add(halmaBoard.findComponentAt(location.x + dim.height, location.y - dim.height));
+				break;
 		}
 
 		return ret_fields;
@@ -203,13 +200,12 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 				field.setBackground(Color.GREEN);
 				ret_fields.add((JPanel)field);
 			}else if (field instanceof JLabel){
-				//if there already is another piece you can skip @todo recursion??
+				//if there already is another piece you can skip
 				Point main_loc = (halmaBoard.findComponentAt(location.x , location.y)).getParent().getLocation();
 				Point ad_loc = field.getParent().getLocation();
 
 				//ArrayList<Component> skip_fields = new ArrayList<>();
 				ArrayList<Component> skip_fields = new ArrayList<>();
-
 
 				switch(movement_mode){
 					case "straight" :
@@ -223,6 +219,7 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 						}else if (main_loc.getX() < ad_loc.getX()){
 							skip_fields.add(halmaBoard.findComponentAt(location.x + 2 * dim.width, location.y ));
 						}
+						break;
 					case "diagonal":
 						if(main_loc.getY() < ad_loc.getY() &&
 								main_loc.getX() < ad_loc.getX()){
@@ -233,11 +230,12 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 						}
 						if(main_loc.getX() > ad_loc.getX() &&
 								main_loc.getY() < ad_loc.getY()){
-							skip_fields.add(halmaBoard.findComponentAt(location.x - 2 * dim.width, location.y + 2 * dim.height ));
+						skip_fields.add(halmaBoard.findComponentAt(location.x - 2 * dim.width, location.y + 2 * dim.height ));
 						}else if (main_loc.getX() < ad_loc.getX() &&
 								main_loc.getY() > ad_loc.getY()){
 							skip_fields.add(halmaBoard.findComponentAt(location.x + 2 * dim.width, location.y - 2 * dim.height));
 						}
+						break;
 					case "free" :
 						if(main_loc.getY() < ad_loc.getY()&&
 								!(main_loc.getX() != ad_loc.getX())){
@@ -267,6 +265,7 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 								main_loc.getY() > ad_loc.getY()){
 							skip_fields.add(halmaBoard.findComponentAt(location.x + 2 * dim.width, location.y - 2 * dim.height));
 						}
+						break;
 				}
 
 
@@ -284,69 +283,112 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 	@Override
 	//@todo update the field by controller input then update the board
 	public void mousePressed(MouseEvent e) {
-		chessPiece = null;
-		Component c =  halmaBoard.findComponentAt(e.getX(), e.getY());
-		if (c instanceof JPanel){
-			return;
+		if(user_enabled){
+			chessPiece = null;
+			Component c =  halmaBoard.findComponentAt(e.getX(), e.getY());
+
+			if (c instanceof JPanel){
+				return;
+			}
+
+			Point parentLocation = c.getParent().getLocation();
+
+			//calculate the allowed moves based on the selected Figure
+			JPanel field = (JPanel)c.getParent();
+
+			Dimension dim = c.getSize();
+			int newx = (int)field.getX() / dim.width;
+			int newy = (int)field.getY() / dim.height;
+			//stone must be stored in temp in order to move it in the 2d array
+			Stone news = playField.checkForStone(newx,newy);
+			Point check = 	playField.getPositionOfStone(news);
+			//if the stone belongs to ai then dont allow movement
+			if(!news.getAffiliation()){
+				return;
+			}
+			//if its the user save it in temp
+			temp = news;
+			allowed_fields = getAllowedMoves(field,new Point(e.getX(),e.getY()));
+
+			// save the initial position in order to reset if necessary
+			old_loc = parentLocation;
+			xAdjustment = parentLocation.x - e.getX();
+			yAdjustment = parentLocation.y - e.getY();
+
+			chessPiece = (JLabel)c;
+			chessPiece.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
+			chessPiece.setSize(chessPiece.getWidth(), chessPiece.getHeight());
+			layeredPane.add(chessPiece, JLayeredPane.DRAG_LAYER);
+
 		}
-		Point parentLocation = c.getParent().getLocation();
-
-		//calculate the allowed moves based on the selected Figure
-		JPanel field = (JPanel)c.getParent();
-
-		allowed_fields = getAllowedMoves(field,new Point(e.getX(),e.getY()));
-
-		// save the initial position in order to reset if necessary
-		old_loc = parentLocation;
-		xAdjustment = parentLocation.x - e.getX();
-		yAdjustment = parentLocation.y - e.getY();
-		chessPiece = (JLabel)c;
-
-		chessPiece.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
-		chessPiece.setSize(chessPiece.getWidth(), chessPiece.getHeight());
-		layeredPane.add(chessPiece, JLayeredPane.DRAG_LAYER);
-
-
 
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		for(JPanel field : allowed_fields){
-			field.setBackground(fieldColor);
-		}
-
-		if(chessPiece == null){
-			return;
-		}
-
-		chessPiece.setVisible(false);
-		Component c =  halmaBoard.findComponentAt(e.getX(), e.getY());
-
-		//if there is another stone return the dragged stone to its initial place
-		if (c instanceof JLabel){
-			JPanel old_panel = (JPanel)halmaBoard.findComponentAt(old_loc);
-			old_panel.add(chessPiece);
-		}
-		else {
-			boolean move_check = false;
+		if(user_enabled){
 			for(JPanel field : allowed_fields){
-				if((field).equals(c)){
-					move_check = true;
-				}
+				field.setBackground(fieldColor);
 			}
-			if(move_check){
-				Container parent = (Container)c;
-				parent.add( chessPiece );
-			}else{
+
+			if(chessPiece == null){
+				return;
+			}
+
+			chessPiece.setVisible(false);
+			Component c =  halmaBoard.findComponentAt(e.getX(), e.getY());
+
+			//if there is another stone return the dragged stone to its initial place
+			if (c instanceof JLabel){
 				JPanel old_panel = (JPanel)halmaBoard.findComponentAt(old_loc);
 				old_panel.add(chessPiece);
 			}
+			else {
+				boolean move_check = false;
+				for(JPanel field : allowed_fields){
+					if((field).equals(c)){
+						move_check = true;
+					}
+				}
+				if(move_check){
+					Container parent = (Container)c;
 
+					parent.add( chessPiece );
+					Dimension dim = c.getSize();
+					int newx = (int)c.getLocation().getX() / dim.width;
+					int newy = (int)c.getLocation().getY() / dim.height;
+					playField.setPosition(temp,newx,newy);
+					//@todo notify gamecontroller that userinput is finished
+					controller.notifyOfInput();
+
+				}else{
+					JPanel old_panel = (JPanel)halmaBoard.findComponentAt(old_loc);
+					old_panel.add(chessPiece);
+				}
+
+			}
+
+			Stone[][] field = playField.getPlayField();
+
+			for(int i = 0 ;i< field.length; i++){
+				for(int j = 0 ;j < field[i].length; j++){
+					if(field[i][j] instanceof  Stone){
+//					System.out.print(" X " );
+//					System.out.print(field[i][j].getAffiliation());
+					}else{
+//					System.out.print(" O " );
+
+					}
+
+				}
+//			System.out.println("_____");
+			}
+
+			chessPiece.setVisible(true);
 		}
 
-		chessPiece.setVisible(true);
 	}
+
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		if (chessPiece == null){
@@ -370,8 +412,5 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 	public void mouseMoved(MouseEvent e) {
 
 	}
-	public static void main(String[] args){
 
-
-	}
 }
