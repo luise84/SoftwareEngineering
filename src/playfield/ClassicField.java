@@ -10,6 +10,7 @@ import game.Stone;
 public class ClassicField implements IPlayField {
 	Stone[][] startFormation;
 	int fieldCount;
+	int stones = 0;
 
 	public ClassicField(int fieldCount) {
 		this.fieldCount = fieldCount;
@@ -27,6 +28,7 @@ public class ClassicField implements IPlayField {
 				//algorithm to get the half pyramid formation for stones
 				startFormation[i][j] = new Stone(true);
 				startFormation[root-1-i][root-1-j] = new Stone(false);
+				stones = stones+2;
 			}
 
 
@@ -60,7 +62,24 @@ public class ClassicField implements IPlayField {
 			}
 		}*/
 
-		Field classic = new Field(startFormation,this.fieldCount);
+		Field classic = new Field(startFormation,this.fieldCount,stones);
 		return classic;
+	}
+
+	public Field createReflectedField(){
+		int root = (int) Math.sqrt(this.fieldCount);
+		int linecount = root / 2;
+		for(int i = 0; i<root / 2 ; i++) {
+			for(int j = 0; j + i < linecount; j++){
+				//algorithm to get the half pyramid formation for stones
+				startFormation[i][j] = new Stone(false);
+				startFormation[root-1-i][root-1-j] = new Stone(true);
+			}
+
+
+		}
+		Field classicReflected = new Field(startFormation,this.fieldCount,stones);
+		return classicReflected;
+
 	}
 }
