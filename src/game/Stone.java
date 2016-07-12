@@ -1,7 +1,5 @@
 package game;
 
-import java.awt.*;
-
 /**
  * Created by Luise on 23.06.2016.
  */
@@ -14,6 +12,14 @@ public class Stone {
 	public boolean movementType;
 	//moveNumber = 0 -> jump, 1 = first move done, 2 = second move done
 	public int moveNumber;
+	public Stone(boolean affiliation) {
+		this.movementType = true;
+		this.affiliation = affiliation;
+		this.moveNumber = 0;
+	}
+
+
+
 	public void setMovementType(boolean nextState) {
 		movementType = nextState;
 
@@ -42,11 +48,11 @@ public class Stone {
 		return this.affiliation;
 	}
 
-
-	public Stone(boolean affiliation) {
-		this.movementType = true;
-		this.affiliation = affiliation;
-		this.moveNumber = 0;
+	public void setAffiliation(boolean value){
+		this.affiliation = value;
 	}
+
+
+
 
 }

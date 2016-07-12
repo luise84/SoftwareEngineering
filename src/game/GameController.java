@@ -1,9 +1,7 @@
 package game;
 
 import ai.AIPlayer;
-import playfield.ClassicField;
 import playfield.GameSetup;
-import playfield.RenpaardenField;
 
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
@@ -13,6 +11,8 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
  */
 public class GameController {
 	private static Field field;
+	private static Field endField;
+	private static int stones;
 	private static String level;
 	private static AIPlayer aiplayer;
 	private static GameSetup gamesetup;
@@ -41,11 +41,15 @@ public class GameController {
 	}
 
 	public void notifyOfInput(){
-		System.out.println(field.endGame());
+		System.out.println(field.endGame(field.getPlayField(), endField.getPlayField()));
 		frame.enableUserInput(false);
 		aiplayer.calculateMove();
-		field.endGame();
 		frame.updateView();
+		//frame.showEndGame();
+		if(field.endGame(field.getPlayField(), endField.getPlayField())){
+			frame.enableUserInput(false);
+			frame.showEndGame();
+		}
 		userInput();
 //		Stone[][] f =field.getPlayField();
 //		for(int i = 0 ;i< f.length; i++){
@@ -63,9 +67,12 @@ public class GameController {
 	}
 
 	private void startGame(){
-		//field = gamesetup.chooseField();
+		field = gamesetup.chooseField();
 		//level = gamesetup.chooseLevel();
-		field = new RenpaardenField(36).createField();
+		//field = new LeZugField(100).createField();
+		endField = gamesetup.createReflectedChoosedField(gamesetup.choosedFieldType);
+
+				//new LeZugField(100).createReflectedField();
 		level = "straight";
 		field.setMovementType(level);
 		aiplayer = new AIPlayer();

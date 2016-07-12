@@ -1,7 +1,6 @@
 package game;
 
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -9,11 +8,16 @@ import java.util.ArrayList;
  */
 public class Field{
     private Stone[][] field;
+    //private Stone[][] endfield;
+    private int stones = 0;
     private int field_count = 100;
     private String movement_type;
-    public Field(Stone[][] fieldarray, int field_count){
+
+    public Field(Stone[][] fieldarray, int field_count, int stones){
         this.field = fieldarray;
         this.field_count = field_count;
+        //this.endfield = reflectField(field);
+        this.stones = stones;
 
 
     }
@@ -213,8 +217,50 @@ public class Field{
 
 
 
-    public boolean endGame(){
-        int root = (int)Math.sqrt(field_count);
+    public boolean endGame(Stone[][] currentField, Stone[][] endfield){
+        /*field at the end is reflected to startfield, compare both fields*/
+        int counterComputerplayer = 0;
+        int counterPlayer = 0;
+        int stonesOfOnePlayer = stones/2;
+
+
+        for(int i=0; i<currentField.length; i++) {
+            for (int j = 0; j < currentField.length; j++) {
+
+                if(currentField[i][j] != null && endfield[i][j] != null){
+
+                    //check if computerplayer has stones on endpositions
+                    if(currentField[i][j].getAffiliation() == false && endfield[i][j].getAffiliation() == false) {
+                        counterComputerplayer++;
+                        System.out.println("computer:"+counterComputerplayer);
+                    }
+                    //check if player has stones on endpositions
+                    else if(currentField[i][j].getAffiliation() == true && endfield[i][j].getAffiliation() == true){
+                        counterPlayer++;
+                        System.out.println("player:"+counterPlayer);
+                    }
+
+                }
+            }
+        }
+
+        if(counterComputerplayer == stonesOfOnePlayer){
+            System.out.println("Der Computer hat gewonnen!!");
+            return true;
+        }
+        else if(counterPlayer == stonesOfOnePlayer){
+            System.out.println("Du hast gewonnen!!");
+            return true;
+        }
+        else return false;
+
+
+
+
+
+
+
+       /* int root = (int)Math.sqrt(field_count);
         for(int i = 0 ; i<root; i++){
             if(field[i][0] instanceof  Stone){
                 //needs to be true
@@ -249,8 +295,10 @@ public class Field{
                 return false;
             }
         }
-        return true;
+        return true;*/
+
     }
+
 
     public static void main(String[] args){
 

@@ -1,6 +1,5 @@
 package game;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
 import gameConfigurations.Attribute;
 
 import javax.imageio.ImageIO;
@@ -116,6 +115,15 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 	}
 
 	private void showField(){
+
+	}
+	public void showEndGame(){
+		JLabel endText = new JLabel("Das Spiel ist zu Ende!");
+
+		endText.setLocation(halmaBoard.getX(),halmaBoard.getY());
+		endText.setSize(endText.getWidth(), endText.getHeight());
+		halmaBoard.add(endText);
+
 
 	}
 	private void emptyBoard(){
