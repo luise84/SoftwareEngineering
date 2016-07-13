@@ -44,7 +44,7 @@ public class AttributeGenerator extends AttributesBaseListener{
 		aiPath = "\"" + ctx.getText().split(":")[1].trim().replace("\\", "/") +"\"";
 	}
 
-	public static void main (String[] args){
+	public static void main (){
 
 
 		//Parse and convert the attributes.txt
@@ -63,7 +63,7 @@ public class AttributeGenerator extends AttributesBaseListener{
 			AttributesBaseListener listener = new AttributeGenerator();
 			walker.walk(listener, fileContext);
 
-			System.out.println(aiPath + " und "+ playerPath );
+			System.out.println(aiPath + " und "+ playerPath + " mit Spielfeldfarbe:" + rgbs);
 
 			//Create the String of new File
 			String classString = "package gameConfigurations; "+

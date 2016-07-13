@@ -1,6 +1,7 @@
 package game;
 
 import ai.AIPlayer;
+import gameConfigurations.AttributeGenerator;
 import playfield.GameSetup;
 
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
@@ -17,9 +18,12 @@ public class GameController {
 	private static AIPlayer aiplayer;
 	private static GameSetup gamesetup;
 	private static View frame;
+	private static AttributeGenerator attributeGenerator;
 
 	public GameController() {
 		this.gamesetup = new GameSetup();
+		this.attributeGenerator = new AttributeGenerator();
+		attributeGenerator.main();
 
 	}
 

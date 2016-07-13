@@ -1,3 +1,3 @@
-Spielfeldfarbe: RGB(255,0,0)
-Bildpfad des Computerspielers: Img\rot.png
+Spielfeldfarbe: RGB(50,50,50)
+Bildpfad des Computerspielers: img\white.png
 Bildpfad des Spielers: img\gruen.png
