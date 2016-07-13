@@ -5,9 +5,9 @@ command: choosetype WHITESPACE+ 'Stein' WHITESPACE+ Connector WHITESPACE+ move W
 
 NEWLINE: [\r\n]+;
 WHITESPACE: [ \t\n\r];
-choosetype: 'Zufälliger' | 'Vorderster' | 'Hinterster';
+choosetype: 'Zufälliger' | 'Vorderster' | 'Hinterster' | 'zufälliger' | 'vorderster' | 'hinterster';
 Connector: 'und';
 move: 'ziehe' | 'springe';
-movetype: 'zufällig' | 'gerade' | 'zur Seite' | 'diagonal';
+movetype: 'zufällig' | 'gerade' | 'zur Seite' | 'zur seite' | 'diagonal';
 movedirection:  'nach' WHITESPACE ('vorne' | 'hinten');
 Oder: 'oder';
