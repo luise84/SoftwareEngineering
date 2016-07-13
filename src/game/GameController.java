@@ -1,6 +1,7 @@
 package game;
 
 import ai.AIPlayer;
+import gameConfigurations.Attribute;
 import gameConfigurations.AttributeGenerator;
 import playfield.GameSetup;
 import playfield.RenpaardenField;
@@ -24,11 +25,13 @@ public class GameController {
 	private static GameSetup gamesetup;
 	private static View frame;
 	private static AttributeGenerator attributeGenerator;
+	private static Attribute attribute;
 
 	public GameController() {
 		this.gamesetup = new GameSetup();
 		this.attributeGenerator = new AttributeGenerator();
 		attributeGenerator.main();
+		this.attribute = new Attribute();
 
 	}
 
@@ -76,10 +79,10 @@ public class GameController {
 	}
 
 	private void startGame(){
-		field = gamesetup.chooseField();
-		level = gamesetup.chooseLevel();
+		field = gamesetup.createChoosedField(attribute.playfield);
+		level = attribute.level;
 		//field = new LeZugField(100).createField();
-		endField = gamesetup.createReflectedChoosedField(gamesetup.choosedFieldType);
+		endField = gamesetup.createReflectedChoosedField(attribute.playfield);
 
 				//new LeZugField(100).createReflectedField();
 		//level = "straight";

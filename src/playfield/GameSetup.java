@@ -3,23 +3,20 @@ package playfield;
 import game.Field;
 
 
-import java.util.Scanner;
-
-
 /**
  * Created by Luise on 26.06.2016.
  */
 public class GameSetup {
-	private static String[] fieldtypes = {"classic", "le zug","renpaarden"};
-	private static String[] leveltypes = {"straight","free","diagonal"};
-	public static String choosedFieldType = "classic";
+	//private static String[] fieldtypes = {"classic", "le zug","renpaarden"};
+	//private static String[] leveltypes = {"straight","free","diagonal"};
+	//public static String choosedFieldType = "classic";
 
 
 	public GameSetup() {
 
 	}
 
-	public static Field chooseField(){
+/*	public static Field chooseField(){
 		Field field = null;
 		IPlayField playfield;
 		System.out.println("Gib dein gewünschtes Spielfeld ein! Wähle Classic, Le Zug oder Renpaarden!");
@@ -49,8 +46,8 @@ public class GameSetup {
 
 
 	}
-
-	private static String readUserInput(String[] options){
+*/
+	/*private static String readUserInput(String[] options){
 		Scanner in = new Scanner(System.in);
 		String userAnswer = in.nextLine();
 		userAnswer = userAnswer.toLowerCase();
@@ -62,7 +59,7 @@ public class GameSetup {
 		System.out.println("Falsche Eingabe!");
 		return null;
 	}
-
+*/
 
 	/*public static void main(String[] args){
 		chooseField();
