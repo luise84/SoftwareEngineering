@@ -5,7 +5,6 @@ import ai.AIPlayerGenerator;
 import gameConfigurations.Attribute;
 import gameConfigurations.AttributeGenerator;
 import playfield.GameSetup;
-import playfield.LeZugField;
 import playfield.RenpaardenField;
 
 import javax.swing.*;
@@ -80,6 +79,7 @@ public class GameController {
 
 		//new LeZugField(100).createReflectedField();
 		level = "straight";
+		//level = "diagonal";
 		field.setMovementType(level);
 		aiplayer = new AIPlayer();
 		aiplayer.setField(field);
