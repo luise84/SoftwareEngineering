@@ -32,12 +32,11 @@ public class Field{
     public boolean setPosition(Stone stone, int x, int y){
         int oldx = 0;
         int oldy = 0;
-        if(x > field.length || y > field.length){
+        if(x > field.length -1 || y > field.length -1 ){
             return false;
         }else if(x < 0 || y < 0){
             return false;
         }
-
         for(int i = 0 ; i<field.length; i++){
             for(int j = 0; j<field[i].length; j++){
                 if(field[i][j] == stone){
@@ -293,6 +292,9 @@ public class Field{
 
 
     public Stone checkForStone(int x, int y){
+        if(x > field.length -1 || x < 0 ||  y > field.length -1|| y < 0){
+            return null;
+        }
         Stone ret = this.field[x][y];
         if(ret != null){
             return ret;

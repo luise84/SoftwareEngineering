@@ -24,7 +24,8 @@ public class AIPlayer {
 		this.movement = field.getMovementTypeLevel();
 	}
 	public boolean calculateMove(){
-		return calculateHardMove();
+
+		return calculateMediumMove();
 	}
 
 	public boolean calculateEasyMove(){
@@ -47,7 +48,12 @@ public class AIPlayer {
 			return true;
 		}else{
 			Point jumper = field.getAllowedJump(point);
-			boolean jumped = field.setPosition(randomStone,(int)point.getX(),(int)point.getY());
+			boolean jumped;
+			if(jumper != null){
+				jumped = field.setPosition(randomStone,(int)jumper.getX(),(int)jumper.getY());
+			}else{
+				jumped = false;
+			}
 			if(jumped){
 				return true;
 			}else{
@@ -75,7 +81,6 @@ public class AIPlayer {
 
 	public boolean calculateHardMove(){
 		Stone first = findForwardStone();
-		System.out.println("hard Mode");
 		if(jumpForward(first)){
 			return true;
 		}else{
@@ -115,11 +120,11 @@ public class AIPlayer {
 	}
 
 
-
 	public Stone findRandomStone()
 	{
 		return stone_list.get(new Random().nextInt(stone_list.size()));
 	}
+
 
 	public boolean jumpForward(Stone stone){
 		Point pos = field.getPositionOfStone(stone);
