@@ -1,5 +1,6 @@
 Zufälliger Stein und springe gerade nach vorne oder
-Zufälliger Stein und springe diagonal nach vorne.
+Zufälliger Stein und springe diagonal nach vorne oder
+Zufälliger Stein und springe zufällig.
 Hinterster Stein und ziehe diagonal nach vorne oder
 Hinterster Stein und ziehe gerade nach vorne.
 Hinterster Stein und ziehe zur Seite.
