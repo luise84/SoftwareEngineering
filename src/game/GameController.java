@@ -5,7 +5,6 @@ import ai.AIPlayerGenerator;
 import gameConfigurations.Attribute;
 import gameConfigurations.AttributeGenerator;
 import playfield.GameSetup;
-import playfield.LeZugField;
 import playfield.RenpaardenField;
 
 import javax.swing.*;
