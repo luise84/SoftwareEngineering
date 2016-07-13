@@ -75,6 +75,7 @@ public class AIPlayer {
 
 	public boolean calculateHardMove(){
 		Stone first = findForwardStone();
+		System.out.println("hard Mode");
 		if(jumpForward(first)){
 			return true;
 		}else{
