@@ -1,13 +1,13 @@
 package game;
 
 import ai.AIPlayer;
+import ai.AIPlayerGenerator;
 import gameConfigurations.Attribute;
 import gameConfigurations.AttributeGenerator;
 import playfield.GameSetup;
 import playfield.RenpaardenField;
 
 import javax.swing.*;
-
 import java.awt.event.ActionEvent;
 
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
@@ -26,12 +26,15 @@ public class GameController {
 	private static View frame;
 	private static AttributeGenerator attributeGenerator;
 	private static Attribute attribute;
+	private static AIPlayerGenerator aiGenerator;
 
 	public GameController() {
 		this.gamesetup = new GameSetup();
 		this.attributeGenerator = new AttributeGenerator();
 		attributeGenerator.main();
 		this.attribute = new Attribute();
+		this.aiGenerator = new AIPlayerGenerator(attribute.ai);
+
 
 	}
 
