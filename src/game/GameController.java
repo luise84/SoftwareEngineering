@@ -3,6 +3,11 @@ package game;
 import ai.AIPlayer;
 import gameConfigurations.AttributeGenerator;
 import playfield.GameSetup;
+import playfield.RenpaardenField;
+
+import javax.swing.*;
+
+import java.awt.event.ActionEvent;
 
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
@@ -82,7 +87,30 @@ public class GameController {
 		aiplayer = new AIPlayer();
 		aiplayer.setField(field);
 
+		showGame();
+
+
+	}
+	private void setup(){}
+
+	private void showGame(){
 		frame = new View(field,this);
+
+		JMenuBar menubar = new JMenuBar();
+		JMenu menu = new JMenu("Game Settings");
+		JMenuItem startItem = new JMenuItem(new AbstractAction("Start new game") {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Field newfield = new RenpaardenField(100).createField();
+				//frame.resetBoard(newfield);
+				//frame.updateView();
+			}
+		});
+		menu.add(startItem);
+		menubar.add(menu);
+
+		frame.setJMenuBar(menubar);
+
 		frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE );
 		frame.pack();
 		frame.setResizable(true);
@@ -90,11 +118,7 @@ public class GameController {
 		frame.setVisible(true);
 
 		frame.enableUserInput(true);
-
-
 	}
-	private void setup(){}
-
 	public static void main(String args[]){
 		GameController game = new GameController();
 		game.startGame();

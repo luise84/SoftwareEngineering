@@ -11,7 +11,7 @@ import java.util.Scanner;
  */
 public class GameSetup {
 	private static String[] fieldtypes = {"classic", "le zug","renpaarden"};
-	private static String[] leveltypes = {"straight","free","diagonal forward"};
+	private static String[] leveltypes = {"straight","free","diagonal"};
 	public static String choosedFieldType = "classic";
 
 
@@ -38,7 +38,7 @@ public class GameSetup {
 		System.out.println("Gib dein Level ein!");
 		System.out.println("Gib 'Straight' ein: nur waagerechte und senkrechte Bewegungen nach vorne und hinten erlaubt. ");
 		System.out.println("Gib 'Free' ein: alle Bewegungsrichtungen nach vorne und hinten erlaubt. ");
-		System.out.println("Gib 'Diagonal Forward' ein: nur diagonale Bewegungsrichtungen nach vorne erlaubt.");
+		System.out.println("Gib 'Diagonal' ein: nur diagonale Bewegungsrichtungen nach vorne erlaubt.");
 		String level = readUserInput(leveltypes);
 		if(!level.equals(null)){
 			return level;

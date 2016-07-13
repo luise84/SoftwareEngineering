@@ -29,7 +29,6 @@ public class AIPlayer {
 		Point point = field.getPositionOfStone(randomStone);
 
 		Point move = field.getAllowedMove(point);
-		System.out.println("point " + move);
 		if(move==null){
 			return calculateMove();
 		}

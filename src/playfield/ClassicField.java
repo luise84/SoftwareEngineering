@@ -26,8 +26,8 @@ public class ClassicField implements IPlayField {
 		for(int i = 0; i<root / 2 ; i++) {
 			for(int j = 0; j + i < linecount; j++){
 				//algorithm to get the half pyramid formation for stones
-				startFormation[i][j] = new Stone(true);
-				startFormation[root-1-i][root-1-j] = new Stone(false);
+				startFormation[i][j] = new Stone(false);
+				startFormation[root-1-i][root-1-j] = new Stone(true);
 				stones = stones+2;
 			}
 
@@ -72,8 +72,8 @@ public class ClassicField implements IPlayField {
 		for(int i = 0; i<root / 2 ; i++) {
 			for(int j = 0; j + i < linecount; j++){
 				//algorithm to get the half pyramid formation for stones
-				startFormation[i][j] = new Stone(false);
-				startFormation[root-1-i][root-1-j] = new Stone(true);
+				startFormation[i][j] = new Stone(true);
+				startFormation[root-1-i][root-1-j] = new Stone(false);
 			}
 
 
