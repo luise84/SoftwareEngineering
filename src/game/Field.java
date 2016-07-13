@@ -68,21 +68,29 @@ public class Field{
             //forward and backward possible
             case "diagonal" :
                 if(point.x == 0 || point.y == 0) return null;
-                check = new Point(point.x +1 , point.y +1 );
-                if(field[check.x][check.y] == null){
-                    return check;
+                if(point.x < field.length-1 && point.y > field.length -1 ){
+                    check = new Point(point.x +1 , point.y +1 );
+                    if(field[check.x][check.y] == null){
+                        return check;
+                    }
                 }
-                check = new Point(point.x -1, point.y -1 );
-                if(field[check.x][check.y] == null){
-                    return check;
+                if(point.x > 0 && point.y > 0 ) {
+                    check = new Point(point.x - 1, point.y - 1);
+                    if (field[check.x][check.y] == null) {
+                        return check;
+                    }
                 }
-                check = new Point(point.x +1 , point.y -1);
-                if(field[check.x][check.y] == null){
-                    return check;
+                if(point.x < field.length -1 && point.y > 0){
+                    check = new Point(point.x +1 , point.y -1);
+                    if(field[check.x][check.y] == null){
+                        return check;
+                    }
                 }
-                check = new Point(point.x - 1, point.y +1 );
-                if(field[check.x][check.y] == null){
-                    return check;
+                if(point.x > 0 && point.y < field.length -1 ){
+                    check = new Point(point.x - 1, point.y +1 );
+                    if(field[check.x][check.y] == null){
+                        return check;
+                    }
                 }
             break;
             //straight forward for human player
@@ -165,44 +173,55 @@ public class Field{
             //forward and backward possible
             case "diagonal" :
                 if(point.x == 0 || point.y == 0) return null;
-                check = new Point(point.x +2 , point.y +2 );
-                if(field[check.x][check.y] == null && field[point.x +1][point.y +1] != null){
-                    return check;
+
+                if(point.x < field.length - 2 && point.y < field.length -2 ){
+                    check = new Point(point.x +2 , point.y +2 );
+                    if(field[check.x][check.y] == null && field[point.x +1][point.y +1] != null){
+                        return check;
+                    }
                 }
-                check = new Point(point.x -2, point.y -2 );
-                if(field[check.x][check.y] == null && field[point.x -1][point.y -1] != null){
-                    return check;
+                if(point.x > 1 && point.y > 1){
+                    check = new Point(point.x -2, point.y -2 );
+                    if(field[check.x][check.y] == null && field[point.x -1][point.y -1] != null){
+                        return check;
+                    }
                 }
-                check = new Point(point.x +2 , point.y -2);
-                if(field[check.x][check.y] == null && field[point.x +1][point.y -1] != null){
-                    return check;
+                if(point.x < field.length - 2 && point.y > 1){
+                    check = new Point(point.x +2 , point.y -2);
+                    if(field[check.x][check.y] == null && field[point.x +1][point.y -1] != null){
+                        return check;
+                    }
                 }
-                check = new Point(point.x - 2, point.y +2 );
-                if(field[check.x][check.y] == null && field[point.x -1][point.y +1] != null){
-                    return check;
+                if(point.x > 1 && point.y < field.length -2 ){
+                    check = new Point(point.x - 2, point.y +2 );
+                    if(point.x < field.length - 2 && point.y < field.length -2 ) {
+                        if (field[check.x][check.y] == null && field[point.x - 1][point.y + 1] != null) {
+                            return check;
+                        }
+                    }
                 }
                 break;
             //straight forward for human player
             case "straight" :
-                if(point.x < field.length-1){
+                if(point.x < field.length-2){
                     check = new Point(point.x +2 , point.y );
                     if(field[check.x][check.y] == null && field[point.x +1][point.y] != null){
                         return check;
                     }
                 }
-                if(point.y < field.length-1){
+                if(point.y < field.length-2){
                     check = new Point(point.x, point.y +2 );
                     if(field[check.x][check.y] == null && field[point.x][point.y +1] != null){
                         return check;
                     }
                 }
 
-//                if(point.y>0){
-//                    check = new Point(point.x, point.y -2 );
-//                    if(field[check.x][check.y] == null && field[point.x][point.y -1] != null){
-//                        return check;
-//                    }
-//                }
+                if(point.y>0){
+                    check = new Point(point.x, point.y -2 );
+                    if(field[check.x][check.y] == null && field[point.x][point.y -1] != null){
+                        return check;
+                    }
+                }
                 if(point.x>0){
                     check = new Point(point.x - 2, point.y);
                     if(field[check.x][check.y] == null && field[point.x -1][point.y] != null){
@@ -213,38 +232,53 @@ public class Field{
                 break;
             case "free":
                 if(point.x == 0 || point.y == 0 ) return null;
-                check = new Point(point.x, point.y +2 );
-                if(field[check.x][check.y] == null && field[point.x][point.y +1] != null){
-                    return check;
+                if(point.y < field.length-2) {
+                    check = new Point(point.x, point.y + 2);
+                    if (field[check.x][check.y] == null && field[point.x][point.y + 1] != null) {
+                        return check;
+                    }
                 }
-                check = new Point(point.x, point.y -2 );
-                if(field[check.x][check.y] == null && field[point.x][point.y -1] != null){
-                    return check;
+                if(point.y > 1) {
+                    check = new Point(point.x, point.y - 2);
+                    if (field[check.x][check.y] == null && field[point.x][point.y - 1] != null) {
+                        return check;
+                    }
                 }
-                check = new Point(point.x +2 , point.y );
-                if(field[check.x][check.y] == null && field[point.x +1][point.y] != null){
-                    return check;
+                if(point.x < field.length-2) {
+                    check = new Point(point.x + 2, point.y);
+                    if (field[check.x][check.y] == null && field[point.x + 1][point.y] != null) {
+                        return check;
+                    }
                 }
-
-                check = new Point(point.x - 2, point.y);
-                if(field[check.x][check.y] == null && field[point.x -1][point.y] != null){
-                    return check;
+                if(point.x > 1) {
+                    check = new Point(point.x - 2, point.y);
+                    if (field[check.x][check.y] == null && field[point.x - 1][point.y] != null) {
+                        return check;
+                    }
                 }
-                check = new Point(point.x +2 , point.y +2 );
-                if(field[check.x][check.y] == null && field[point.x +1][point.y +1] != null){
-                    return check;
+                if(point.x < field.length - 2 && point.y < field.length -2 ) {
+                    check = new Point(point.x + 2, point.y + 2);
+                    if (field[check.x][check.y] == null && field[point.x + 1][point.y + 1] != null) {
+                        return check;
+                    }
                 }
-                check = new Point(point.x -2, point.y -2 );
-                if(field[check.x][check.y] == null && field[point.x -1][point.y -1] != null){
-                    return check;
+                if(point.x > 1 && point.y > 1) {
+                    check = new Point(point.x - 2, point.y - 2);
+                    if (field[check.x][check.y] == null && field[point.x - 1][point.y - 1] != null) {
+                        return check;
+                    }
                 }
-                check = new Point(point.x +2 , point.y -2);
-                if(field[check.x][check.y] == null && field[point.x +1][point.y -1] != null){
-                    return check;
+                if(point.x < field.length - 2 && point.y > 1) {
+                    check = new Point(point.x + 2, point.y - 2);
+                    if (field[check.x][check.y] == null && field[point.x + 1][point.y - 1] != null) {
+                        return check;
+                    }
                 }
-                check = new Point(point.x - 2, point.y +2 );
-                if(field[check.x][check.y] == null && field[point.x -1][point.y +1] != null){
-                    return check;
+                if(point.x > 1 && point.y < field.length -2 ) {
+                    check = new Point(point.x - 2, point.y + 2);
+                    if (field[check.x][check.y] == null && field[point.x - 1][point.y + 1] != null) {
+                        return check;
+                    }
                 }
                 break;
         }
@@ -361,49 +395,6 @@ public class Field{
             return true;
         }
         else return false;
-
-
-
-
-
-
-
-       /* int root = (int)Math.sqrt(field_count);
-        for(int i = 0 ; i<root; i++){
-            if(field[i][0] instanceof  Stone){
-                //needs to be true
-                if(!field[i][0].getAffiliation()){
-                    return false;
-                }
-            }else{
-                return false;
-            }
-            if(field[i][1] instanceof  Stone){
-                //needs to be true
-                if(!field[i][0].getAffiliation()){
-                    return false;
-                }
-            }else{
-                return false;
-            }
-            if(field[i][root-1] instanceof  Stone){
-                //needs to be false
-                if(field[i][0].getAffiliation()){
-                    return false;
-                }
-            }else{
-                return false;
-            }
-            if(field[i][root-2] instanceof  Stone){
-                //needs to be false
-                if(field[i][0].getAffiliation()){
-                    return false;
-                }
-            }else{
-                return false;
-            }
-        }
-        return true;*/
 
     }
 

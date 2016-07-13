@@ -164,12 +164,19 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 		for(int i = 0; i < root; i++){
 			for(int j = 0; j < root; j++){
 				int bCount = i + ((j ) * (int)Math.sqrt(field_count));
-				JPanel c = (JPanel)halmaBoard.getComponent(bCount);
-				c.removeAll();
-				Component component = halmaBoard.findComponentAt((int)(i * dim.getHeight()), (int) (j * dim.getWidth()));
-//				System.out.println((int)(i * dim.getHeight()) + " : " + (int) (j * dim.getWidth()));
+				JPanel c = (JPanel) halmaBoard.getComponent(bCount);
 
+				//add a little offset to the searchfield so the return type isnt always jpanel but jlabel
+				int ij =(int)(i * dim.getHeight());
+				int ji =(int)(j * dim.getHeight());
+				int num =  ij +5;
+				int num2 = ji +5;
 
+				Component component = halmaBoard.findComponentAt(num,num2);
+				//if the component is a stone then remove it from the jpanel
+				if (component instanceof JLabel){
+					c.remove(component);
+				}
 			}
 		}
 	}
@@ -322,12 +329,10 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 	}
 
 	@Override
-	//@todo update the field by controller input then update the board
 	public void mousePressed(MouseEvent e) {
 		if(user_enabled){
 			stone = null;
 			Component c =  halmaBoard.findComponentAt(e.getX(), e.getY());
-
 			if (c instanceof JPanel){
 				return;
 			}
@@ -367,7 +372,6 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		System.out.println("user_enabled : " +  user_enabled);
 		if(user_enabled){
 			for(JPanel field : allowed_fields){
 				field.setBackground(fieldColor);
@@ -400,7 +404,9 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 					int newx = (int)c.getLocation().getX() / dim.width;
 					int newy = (int)c.getLocation().getY() / dim.height;
 					playField.setPosition(temp,newx,newy);
-					//@todo notify gamecontroller that userinput is finished
+					//notify gamecontroller that userinput is finished
+					//notify gamecontsysteroller that userinput is finished
+					System.out.println(playField.getAllowedJump(new Point(newx,newy)));
 					controller.notifyOfInput();
 
 				}else{

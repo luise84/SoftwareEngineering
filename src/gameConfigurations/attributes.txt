@@ -3,4 +3,4 @@ Bildpfad des Computerspielers: img\white.png
 Bildpfad des Spielers: img\gruen.png
 Spielfeldtyp: renpaarden
 Level: straight
-AI: medium
+AI: easy

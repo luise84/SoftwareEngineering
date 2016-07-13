@@ -5,6 +5,7 @@ import ai.AIPlayerGenerator;
 import gameConfigurations.Attribute;
 import gameConfigurations.AttributeGenerator;
 import playfield.GameSetup;
+import playfield.LeZugField;
 import playfield.RenpaardenField;
 
 import javax.swing.*;
@@ -51,14 +52,14 @@ public class GameController {
 	}
 
 	private void computerMove(){
-		aiplayer.calculateMove();
+		aiplayer.calculateRandomMove();
 		waitForPlayerInput();
 	}
 
 	public void notifyOfInput(){
 		System.out.println(field.endGame(field.getPlayField(), endField.getPlayField()));
 		frame.enableUserInput(false);
-		aiplayer.calculateMove();
+		aiplayer.calculateRandomMove();
 		frame.updateView();
 		//frame.showEndGame();
 		if(field.endGame(field.getPlayField(), endField.getPlayField())){
@@ -87,8 +88,11 @@ public class GameController {
 		//field = new LeZugField(100).createField();
 		endField = gamesetup.createReflectedChoosedField(attribute.playfield);
 
-				//new LeZugField(100).createReflectedField();
+		//new LeZugField(100).createReflectedField();
 		//level = "straight";
+
+		//new LeZugField(100).createReflectedField();
+		level = "diagonal";
 		field.setMovementType(level);
 		aiplayer = new AIPlayer();
 		aiplayer.setField(field);

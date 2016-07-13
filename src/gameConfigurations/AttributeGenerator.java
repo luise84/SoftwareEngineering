@@ -59,7 +59,8 @@ public class AttributeGenerator extends AttributesBaseListener{
 		level = "\"" + ctx.getText().split(":")[1].trim().toLowerCase() +"\"";
 	}
 
-	@Override public void enterAiType(AttributesParser.AiTypeContext ctx) { ai = "\"" + ctx.getText().split(":")[1].trim().toLowerCase() +"\"";}
+	@Override public void enterAi(AttributesParser.AiContext ctx) { ai = "\"" + ctx.getText().split(":")[1].trim().toLowerCase() +"\""; }
+
 
 	public static void main (){
 
