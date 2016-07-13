@@ -1,5 +1,5 @@
-package gameConfigurations;// Generated from C:\Users\Luise\01Luise_Ordner\StudiumMI\Master\semester1\SE\Uebung4_Semesterprojekt\SoftwareEngineering\src\gameConfigurations\Attributes.g4 by ANTLR 4.5.3
-
+// Generated from Attributes.g4 by ANTLR 4.5.3
+package gameConfigurations;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -63,6 +63,30 @@ public class AttributesBaseListener implements AttributesListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterPlayfield(AttributesParser.PlayfieldContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPlayfield(AttributesParser.PlayfieldContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLevel(AttributesParser.LevelContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLevel(AttributesParser.LevelContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterPath(AttributesParser.PathContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -70,6 +94,30 @@ public class AttributesBaseListener implements AttributesListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitPath(AttributesParser.PathContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPType(AttributesParser.PTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPType(AttributesParser.PTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLType(AttributesParser.LTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLType(AttributesParser.LTypeContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

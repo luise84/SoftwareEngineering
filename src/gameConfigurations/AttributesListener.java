@@ -1,5 +1,4 @@
-// Generated from C:\Users\Luise\01Luise_Ordner\StudiumMI\Master\semester1\SE\Uebung4_Semesterprojekt\SoftwareEngineering\src\gameConfigurations\Attributes.g4 by ANTLR 4.5.3
-package gameConfigurations;
+package gameConfigurations;// Generated from Attributes.g4 by ANTLR 4.5.3
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -48,6 +47,26 @@ public interface AttributesListener extends ParseTreeListener {
 	 */
 	void exitPlayer(AttributesParser.PlayerContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AttributesParser#playfield}.
+	 * @param ctx the parse tree
+	 */
+	void enterPlayfield(AttributesParser.PlayfieldContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AttributesParser#playfield}.
+	 * @param ctx the parse tree
+	 */
+	void exitPlayfield(AttributesParser.PlayfieldContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AttributesParser#level}.
+	 * @param ctx the parse tree
+	 */
+	void enterLevel(AttributesParser.LevelContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AttributesParser#level}.
+	 * @param ctx the parse tree
+	 */
+	void exitLevel(AttributesParser.LevelContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AttributesParser#path}.
 	 * @param ctx the parse tree
 	 */
@@ -57,4 +76,24 @@ public interface AttributesListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitPath(AttributesParser.PathContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AttributesParser#pType}.
+	 * @param ctx the parse tree
+	 */
+	void enterPType(AttributesParser.PTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AttributesParser#pType}.
+	 * @param ctx the parse tree
+	 */
+	void exitPType(AttributesParser.PTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AttributesParser#lType}.
+	 * @param ctx the parse tree
+	 */
+	void enterLType(AttributesParser.LTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AttributesParser#lType}.
+	 * @param ctx the parse tree
+	 */
+	void exitLType(AttributesParser.LTypeContext ctx);
 }
