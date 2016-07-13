@@ -11,7 +11,7 @@ public class Field{
     //private Stone[][] endfield;
     private int stones = 0;
     private int field_count = 100;
-    private String movement_type;
+    private String movement_typeLevel; //level
 
     public Field(Stone[][] fieldarray, int field_count, int stones){
         this.field = fieldarray;
@@ -21,12 +21,14 @@ public class Field{
 
 
     }
-    public void setMovementType(String movement_type){
-        this.movement_type = movement_type;
+    public void setMovementType(String movement_typeLevel){
+        this.movement_typeLevel = movement_typeLevel;
     }
-    public String  getMovementType(){
-        return this.movement_type;
+    public String getMovementTypeLevel(){
+        return this.movement_typeLevel;
     }
+
+
     public boolean setPosition(Stone stone, int x, int y){
         int oldx = 0;
         int oldy = 0;
@@ -49,13 +51,21 @@ public class Field{
             return false;
         }
     }
+
+
     public int getFieldCount(){
         return this.field_count;
     }
 
+    /* Bewegungsart: ziehen
+    * Level Straight: nur waagerechte und senkrechte Bewegungen nach vorne und hinten erlaubt (4)
+	* Level Free: alle Bewegungsrichtungen nach vorne und hinten erlaubt (8)
+    * Level Diagonal Forward: nur diagonale Bewegungsrichtungen nach vorne erlaubt (2)
+     */
     public Point getAllowedMove(Point point){
         Point check;
-        switch(movement_type){
+        switch(movement_typeLevel){
+            //forward and backward possible
             case "diagonal" :
                 if(point.x == 0 || point.y == 0) return null;
                 check = new Point(point.x +1 , point.y +1 );
@@ -75,6 +85,7 @@ public class Field{
                     return check;
                 }
             break;
+            //straight forward for human player
             case "straight" :
                 if(point.x < field.length-1){
                     check = new Point(point.x +1 , point.y );
@@ -142,6 +153,103 @@ public class Field{
         }
         return null;
     }
+    /* Bewegungsart: Springen
+    * Level Straight: nur waagerechte und senkrechte Bewegungen nach vorne und hinten erlaubt (4)
+	* Level Free: alle Bewegungsrichtungen nach vorne und hinten erlaubt (8)
+    * Level Diagonal Forward: nur diagonale Bewegungsrichtungen nach vorne erlaubt (2)
+     */
+    public Point getAllowedJump(Point point){
+
+        Point check;
+        switch(movement_typeLevel){
+            //forward and backward possible
+            case "diagonal" :
+                if(point.x == 0 || point.y == 0) return null;
+                check = new Point(point.x +2 , point.y +2 );
+                if(field[check.x][check.y] == null && field[point.x +1][point.y +1] != null){
+                    return check;
+                }
+                check = new Point(point.x -2, point.y -2 );
+                if(field[check.x][check.y] == null && field[point.x -1][point.y -1] != null){
+                    return check;
+                }
+                check = new Point(point.x +2 , point.y -2);
+                if(field[check.x][check.y] == null && field[point.x +1][point.y -1] != null){
+                    return check;
+                }
+                check = new Point(point.x - 2, point.y +2 );
+                if(field[check.x][check.y] == null && field[point.x -1][point.y +1] != null){
+                    return check;
+                }
+                break;
+            //straight forward for human player
+            case "straight" :
+                if(point.x < field.length-1){
+                    check = new Point(point.x +2 , point.y );
+                    if(field[check.x][check.y] == null && field[point.x +1][point.y] != null){
+                        return check;
+                    }
+                }
+                if(point.y < field.length-1){
+                    check = new Point(point.x, point.y +2 );
+                    if(field[check.x][check.y] == null && field[point.x][point.y +1] != null){
+                        return check;
+                    }
+                }
+
+//                if(point.y>0){
+//                    check = new Point(point.x, point.y -2 );
+//                    if(field[check.x][check.y] == null && field[point.x][point.y -1] != null){
+//                        return check;
+//                    }
+//                }
+                if(point.x>0){
+                    check = new Point(point.x - 2, point.y);
+                    if(field[check.x][check.y] == null && field[point.x -1][point.y] != null){
+                        return check;
+                    }
+                }
+
+                break;
+            case "free":
+                if(point.x == 0 || point.y == 0 ) return null;
+                check = new Point(point.x, point.y +2 );
+                if(field[check.x][check.y] == null && field[point.x][point.y +1] != null){
+                    return check;
+                }
+                check = new Point(point.x, point.y -2 );
+                if(field[check.x][check.y] == null && field[point.x][point.y -1] != null){
+                    return check;
+                }
+                check = new Point(point.x +2 , point.y );
+                if(field[check.x][check.y] == null && field[point.x +1][point.y] != null){
+                    return check;
+                }
+
+                check = new Point(point.x - 2, point.y);
+                if(field[check.x][check.y] == null && field[point.x -1][point.y] != null){
+                    return check;
+                }
+                check = new Point(point.x +2 , point.y +2 );
+                if(field[check.x][check.y] == null && field[point.x +1][point.y +1] != null){
+                    return check;
+                }
+                check = new Point(point.x -2, point.y -2 );
+                if(field[check.x][check.y] == null && field[point.x -1][point.y -1] != null){
+                    return check;
+                }
+                check = new Point(point.x +2 , point.y -2);
+                if(field[check.x][check.y] == null && field[point.x +1][point.y -1] != null){
+                    return check;
+                }
+                check = new Point(point.x - 2, point.y +2 );
+                if(field[check.x][check.y] == null && field[point.x -1][point.y +1] != null){
+                    return check;
+                }
+                break;
+        }
+        return null;
+    }
 
 
     public Stone checkForStone(int x, int y){
@@ -183,9 +291,9 @@ public class Field{
         return this.field;
     }
     /*
-    stone must have the right combination of right movementtype and movedirection
+    stone must have the right combination of right movementtype of stone and movedirection in level
      */
-    private boolean checkMovement(Stone stone, int x, int y){
+    private boolean checkMovement(Stone stone, int x, int y, String movement_typeLevel){
         //stone can jump
         if(stone.movementType){
            //@ToDO check if new field in (after next row or after next column) or (in after next row and after next column)
