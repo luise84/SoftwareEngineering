@@ -1,3 +1,5 @@
 Spielfeldfarbe: RGB(50,50,50)
 Bildpfad des Computerspielers: img\white.png
 Bildpfad des Spielers: img\gruen.png
+Spielfeldtyp: renpaarden
+Level:  Free
