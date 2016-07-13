@@ -72,12 +72,12 @@ public class GameController {
 
 	private void startGame(){
 		field = gamesetup.chooseField();
-		//level = gamesetup.chooseLevel();
+		level = gamesetup.chooseLevel();
 		//field = new LeZugField(100).createField();
 		endField = gamesetup.createReflectedChoosedField(gamesetup.choosedFieldType);
 
 				//new LeZugField(100).createReflectedField();
-		level = "straight";
+		//level = "straight";
 		field.setMovementType(level);
 		aiplayer = new AIPlayer();
 		aiplayer.setField(field);
