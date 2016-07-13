@@ -1,5 +1,5 @@
-// Generated from Attributes.g4 by ANTLR 4.5.3
-package gameConfigurations;
+package gameConfigurations;// Generated from Attributes.g4 by ANTLR 4.5.3
+
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -87,6 +87,18 @@ public class AttributesBaseListener implements AttributesListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterAi(AttributesParser.AiContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAi(AttributesParser.AiContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterPath(AttributesParser.PathContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -118,6 +130,18 @@ public class AttributesBaseListener implements AttributesListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitLType(AttributesParser.LTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAiType(AttributesParser.AiTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAiType(AttributesParser.AiTypeContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

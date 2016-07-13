@@ -1,0 +1,5 @@
+Zufälliger Stein und ziehe zufällig.
+Vorderster Stein und ziehe gerade.
+Hinterster Stein und ziehe zur Seite.
+Zufälliger Stein und springe diagonal nach vorne.
+Vorderster Stein und springe diagonal nach hinten.

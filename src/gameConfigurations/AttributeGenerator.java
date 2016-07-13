@@ -16,6 +16,7 @@ public class AttributeGenerator extends AttributesBaseListener{
 	static String playerPath = "";
 	static String playfield = "";
 	static String level = "";
+	static String ai = "";
 
 	@Override
 	/*Diese Methode verarbeitet die eingegebenen RGB-Werte*/
@@ -58,7 +59,9 @@ public class AttributeGenerator extends AttributesBaseListener{
 		level = "\"" + ctx.getText().split(":")[1].trim().toLowerCase() +"\"";
 	}
 
-	public static void main (String[] args){
+	@Override public void enterAiType(AttributesParser.AiTypeContext ctx) { ai = "\"" + ctx.getText().split(":")[1].trim().toLowerCase() +"\"";}
+
+	public static void main (){
 
 
 		//Parse and convert the attributes.txt
@@ -88,6 +91,7 @@ public class AttributeGenerator extends AttributesBaseListener{
 					"public String playerStoneImagePath;"+
 					"public String playfield; "+
 					"public String level;"+
+					"public String ai;"+
 
 					"public Attribute() {"+
 					"this.fieldColor = new Color("+rgbs+");"+
@@ -95,6 +99,7 @@ public class AttributeGenerator extends AttributesBaseListener{
 					"this.playerStoneImagePath = "+playerPath+";"+
 					"this.playfield = "+playfield+";"+
 					"this.level = "+level+";"+
+					"this.ai = "+ai+";"+
 					"}"+
 					"}";
 

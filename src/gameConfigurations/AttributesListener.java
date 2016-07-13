@@ -67,6 +67,16 @@ public interface AttributesListener extends ParseTreeListener {
 	 */
 	void exitLevel(AttributesParser.LevelContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AttributesParser#ai}.
+	 * @param ctx the parse tree
+	 */
+	void enterAi(AttributesParser.AiContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AttributesParser#ai}.
+	 * @param ctx the parse tree
+	 */
+	void exitAi(AttributesParser.AiContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AttributesParser#path}.
 	 * @param ctx the parse tree
 	 */
@@ -96,4 +106,14 @@ public interface AttributesListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitLType(AttributesParser.LTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AttributesParser#aiType}.
+	 * @param ctx the parse tree
+	 */
+	void enterAiType(AttributesParser.AiTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AttributesParser#aiType}.
+	 * @param ctx the parse tree
+	 */
+	void exitAiType(AttributesParser.AiTypeContext ctx);
 }
