@@ -32,6 +32,12 @@ public class Field{
     public boolean setPosition(Stone stone, int x, int y){
         int oldx = 0;
         int oldy = 0;
+        if(x > field.length || y > field.length){
+            return false;
+        }else if(x < 0 || y < 0){
+            return false;
+        }
+
         for(int i = 0 ; i<field.length; i++){
             for(int j = 0; j<field[i].length; j++){
                 if(field[i][j] == stone){
@@ -216,13 +222,13 @@ public class Field{
                     }
                 }
 
-                if(point.y>0){
+                if(point.y>1){
                     check = new Point(point.x, point.y -2 );
                     if(field[check.x][check.y] == null && field[point.x][point.y -1] != null){
                         return check;
                     }
                 }
-                if(point.x>0){
+                if(point.x>1){
                     check = new Point(point.x - 2, point.y);
                     if(field[check.x][check.y] == null && field[point.x -1][point.y] != null){
                         return check;
@@ -397,7 +403,20 @@ public class Field{
         else return false;
 
     }
+    public void printField(){
+        for(int i = 0 ;i< field.length; i++){
+            for(int j = 0 ;j < field[i].length; j++){
+                if(field[i][j] instanceof  Stone){
+					System.out.print(" X " );
+                }else{
+					System.out.print( " O " );
 
+                }
+
+            }
+			System.out.println("_____");
+        }
+    }
 
     public static void main(String[] args){
 

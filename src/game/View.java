@@ -20,6 +20,7 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 	private GameController controller;
 	JLayeredPane layeredPane;
 	JPanel halmaBoard;
+	JPanel ui;
 	JLabel stone;
 	String movement_mode;
 	String field_mode ="classic";
@@ -61,11 +62,11 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 		layeredPane.addMouseMotionListener(this);
 
 		//Add the ui
-		JPanel ui = new JPanel();
+		ui = new JPanel();
 		ui.setLayout(new BorderLayout());
 		ui.add(new JLabel("Halma"),BorderLayout.NORTH);
-		JButton endButton = new JButton("End Turn");
-		endButton.addActionListener(new ActionListener() {
+//		JButton endButton = new JButton("End Turn");
+		/*endButton.addActionListener(new ActionListener() {
 										@Override
 										public void actionPerformed(ActionEvent e) {
 											//if the endbutton is clicked then end the turn
@@ -74,10 +75,10 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 										}
 									}
 		);
-
+*/
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		buttonPanel.add(endButton);
+//		buttonPanel.add(endButton);
 //		endbutton.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		ui.add(buttonPanel,BorderLayout.SOUTH);
 		ui.setPreferredSize(uiSize);
@@ -150,11 +151,7 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 	}
 	public void showEndGame(){
 		JLabel endText = new JLabel("Das Spiel ist zu Ende!");
-
-		endText.setLocation(halmaBoard.getX(),halmaBoard.getY());
-		endText.setSize(endText.getWidth(), endText.getHeight());
-		halmaBoard.add(endText);
-
+		ui.add(endText,BorderLayout.CENTER);
 
 	}
 	private void emptyBoard(){
@@ -405,8 +402,6 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 					int newy = (int)c.getLocation().getY() / dim.height;
 					playField.setPosition(temp,newx,newy);
 					//notify gamecontroller that userinput is finished
-					//notify gamecontsysteroller that userinput is finished
-					System.out.println(playField.getAllowedJump(new Point(newx,newy)));
 					controller.notifyOfInput();
 
 				}else{
@@ -415,23 +410,6 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 				}
 
 			}
-
-			Stone[][] field = playField.getPlayField();
-
-			for(int i = 0 ;i< field.length; i++){
-				for(int j = 0 ;j < field[i].length; j++){
-					if(field[i][j] instanceof  Stone){
-//					System.out.print(" X " );
-//					System.out.print(field[i][j].getAffiliation());
-					}else{
-//					System.out.print(" O " );
-
-					}
-
-				}
-//			System.out.println("_____");
-			}
-
 			stone.setVisible(true);
 		}
 

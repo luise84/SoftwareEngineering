@@ -52,34 +52,21 @@ public class GameController {
 	}
 
 	private void computerMove(){
-		aiplayer.calculateRandomMove();
+		aiplayer.calculateMove();
 		waitForPlayerInput();
 	}
 
 	public void notifyOfInput(){
 		System.out.println(field.endGame(field.getPlayField(), endField.getPlayField()));
 		frame.enableUserInput(false);
-		aiplayer.calculateRandomMove();
+		aiplayer.calculateMove();
 		frame.updateView();
-		//frame.showEndGame();
 		if(field.endGame(field.getPlayField(), endField.getPlayField())){
 			frame.enableUserInput(false);
 			frame.showEndGame();
 		}
+		field.printField();
 		userInput();
-//		Stone[][] f =field.getPlayField();
-//		for(int i = 0 ;i< f.length; i++){
-//			for(int j = 0 ;j < f[i].length; j++){
-//				if(f[i][j] instanceof  Stone){
-//					System.out.print(" X " );
-//				}else{
-//					System.out.print(" O " );
-//
-//				}
-//
-//			}
-//			System.out.println("_____");
-//		}
 	}
 
 	private void startGame(){
@@ -92,7 +79,7 @@ public class GameController {
 		//level = "straight";
 
 		//new LeZugField(100).createReflectedField();
-		level = "diagonal";
+		level = "straight";
 		field.setMovementType(level);
 		aiplayer = new AIPlayer();
 		aiplayer.setField(field);

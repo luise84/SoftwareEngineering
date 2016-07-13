@@ -1,4 +1,5 @@
 // Generated from AiMoves.g4 by ANTLR 4.5.3
+package ai;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;

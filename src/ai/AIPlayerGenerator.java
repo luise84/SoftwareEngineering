@@ -38,12 +38,6 @@ public class AIPlayerGenerator extends AiMovesBaseListener{
 			String classString = "package ai; "+
 					"import java.awt.*;"+
 					"public class AIPlayer {"+
-					"public Color fieldColor;"+
-					"public String aiStoneImagePath;"+
-					"public String playerStoneImagePath;"+
-					"public String playfield; "+
-					"public String level;"+
-					"public String ai;"+
 
 					"public AIPlayer() {"+
 
