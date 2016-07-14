@@ -1,109 +1,16 @@
-package ai;
-
-import game.Field;
+package ai; import java.awt.*;import game.Field;
 import game.Stone;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Random;
-
-/**
- * Created by Luise on 26.06.2016.
- */
-public class AIPlayer {
-	Field field;
+import java.util.Random;public class AIPlayer {	Field field;
 	ArrayList<Stone> stone_list;
 	String movement;
-	public AIPlayer(){
-
-	}
-
-	public void setField(Field field){
+public AIPlayer() {}public void setField(Field field){
 		this.field = field;
 		this.stone_list = field.getStonesByAffiliation(false);
 		this.movement = field.getMovementTypeLevel();
-	}
-
-	public boolean calculateMove(){
-		return calculateMediumMove();
-	}
-
-	public boolean calculateEasyMove(){
-		Stone first = findForwardStone();
-		Stone random  = findRandomStone();
-		Stone last = findLastStone();
-		boolean move;
-		move = moveForward(random);
-		if(move){
-			return true;
-		}else{
-			return calculateEasyMove();
-		}
-	}
-
-	public boolean calculateMediumMove(){
-		Stone randomStone  = findRandomStone();
-		Stone lastStone = findLastStone();
-		boolean move;
-
-
-		move = jumpForward(randomStone);
-		if(move){
-			return true;
-		}else{
-			move = jumpRandom(randomStone);
-			if(move ){
-				return true;
-			}else{
-				move  = moveForward(lastStone);
-				if(move){
-					return true;
-				}else{
-					move = moveSideways(lastStone);
-					if(move){
-						return true;
-					}else{
-						move = moveStraightForward(randomStone);
-						if(move){
-							return true;
-						}else{
-							return calculateMediumMove();
-						}
-
-					}
-				}
-			}
-		}
-	}
-	public boolean calculateHardMove(){
-		Stone first = findForwardStone();
-		Stone last = findLastStone();
-		if(jumpForward(first)){
-			return true;
-		}else{
-			if(jumpForward(last)){
-				return true;
-			}else{
-				if(moveForward(first)){
-					return true;
-				}else{
-					if(moveSideways(first)){
-						return true;
-					}else{
-						Stone random = findRandomStone();
-						if(moveForward(random)){
-							return true;
-						}else{
-							return calculateHardMove();
-						}
-					}
-				}
-			}
-		}
-	}
-
-
-	public boolean jumpRandom(Stone stone){
+	}public boolean calculateMove(){Stone first = findForwardStone();Stone random = findRandomStone();Stone last = findLastStone();boolean move;move = moveForward(first);if(move){return true;}else{return calculateMove();}}	public boolean jumpRandom(Stone stone){
 		Point point = field.getAllowedJump(field.getPositionOfStone(stone));
 		boolean allowed = field.setPosition(stone, (int)point.getX(), (int)point.getY());
 		return allowed;
@@ -187,7 +94,7 @@ public class AIPlayer {
 
 	}
 
-	public boolean moveSideways(Stone stone){
+	public boolean moveSideWays(Stone stone){
 		Point pos = field.getPositionOfStone(stone);
 		switch(movement){
 			case "straight" :
@@ -241,6 +148,4 @@ public class AIPlayer {
 			}
 		}
 		return null;
-	}
-
-}
+	}}

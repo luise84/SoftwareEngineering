@@ -23,7 +23,6 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 	JPanel ui;
 	JLabel stone;
 	String movement_mode;
-	String field_mode ="classic";
 	Stone temp;
 	private boolean user_enabled = false;
 
@@ -65,17 +64,7 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 		ui = new JPanel();
 		ui.setLayout(new BorderLayout());
 		ui.add(new JLabel("Halma"),BorderLayout.NORTH);
-//		JButton endButton = new JButton("End Turn");
-		/*endButton.addActionListener(new ActionListener() {
-										@Override
-										public void actionPerformed(ActionEvent e) {
-											//if the endbutton is clicked then end the turn
-											controller.notifyOfInput();
-//											System.out.println("End turn was clicked");
-										}
-									}
-		);
-*/
+
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 //		buttonPanel.add(endButton);
@@ -118,7 +107,7 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 
 		Image dimg_b = img_b.getScaledInstance(36, -1, Image.SCALE_SMOOTH);
 		Image dimg_w = img_w.getScaledInstance(36, -1, Image.SCALE_SMOOTH);
-		//JLabel piece = new JLabel(new ImageIcon("img/black.png"));
+
 		ImageIcon icon_b = new ImageIcon(dimg_b);
 		ImageIcon icon_w = new ImageIcon(dimg_w);
 
@@ -146,9 +135,6 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 		createBoard(icon_b, icon_w);
 	}
 
-	private void showField(){
-
-	}
 	public void showEndGame(){
 		JLabel endText = new JLabel("Das Spiel ist zu Ende!");
 		ui.add(endText,BorderLayout.CENTER);
@@ -180,7 +166,6 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 	}
 
 	private void createBoard(ImageIcon icon_b, ImageIcon  icon_w){
-		//Stone[][] active_field = playField.getPlayField();
 		int root = (int)Math.sqrt(field_count);
 		for(int i = 0; i < root; i++){
 			for(int j = 0; j < root; j++){

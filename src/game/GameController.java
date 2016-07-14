@@ -34,7 +34,7 @@ public class GameController {
 		attributeGenerator.main();
 		this.attribute = new Attribute();
 		this.aiGenerator = new AIPlayerGenerator(attribute.ai);
-		//aiGenerator.main();
+		aiGenerator.main();
 
 
 	}

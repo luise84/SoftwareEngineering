@@ -112,7 +112,7 @@ public class Field{
                         return check;
                     }
                 }
-
+//AI player should not move backwards
 //                if(point.y>0){
 //                    check = new Point(point.x, point.y -1 );
 //                    if(field[check.x][check.y] == null){

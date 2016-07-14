@@ -1,7 +1,4 @@
-Zufaelliger Stein und springe gerade nach vorne oder
-Zufaelliger Stein und springe diagonal nach vorne oder
+Zufaelliger Stein und springe gerade nach vorne
 Zufaelliger Stein und springe zufaellig.
-Hinterster Stein und ziehe diagonal nach vorne oder
 Hinterster Stein und ziehe gerade nach vorne.
-Hinterster Stein und ziehe zur Seite oder
-Zufaelliger Stein und ziehe diagonal nach vorne.
+Zufaelliger Stein und ziehe zufaellig.

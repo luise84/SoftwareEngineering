@@ -29,18 +29,6 @@ public class RenpaardenField implements IPlayField {
 			startFormation[root-1- i][root-2] = new Stone(true);
 			stones = stones+4;
 		}
-/*
-		for(int i=0; i<startFormation.length; i++){
-			for(int j=0; j<startFormation[i].length; j++){
-				if(i<2)
-					//Stones of computerplayer
-					startFormation[i][j] = new Stone(false);
-				else if(i>5)
-					//stones of user
-					startFormation[i][j] = new Stone(true);
-			}
-		}
-*/
 		Field renpaarden = new Field(this.startFormation,this.fieldCount, stones);
 		return renpaarden;
 	}

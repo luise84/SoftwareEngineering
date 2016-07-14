@@ -4,8 +4,7 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,12 +13,9 @@ import java.util.List;
  */
 public class AIPlayerGenerator extends AiMovesBaseListener{
 	private static String aiType = "hard";
-	private static String methodString;
 	private String stoneParam;
 	private String methodName;
-	private String methodConstruct;
-	private ArrayList<String> methods = new ArrayList<>();
-
+	private static ArrayList<String> methods = new ArrayList<>();
 	public AIPlayerGenerator(String aiType){
 		this.aiType = aiType;
 	}
@@ -70,118 +66,37 @@ public class AIPlayerGenerator extends AiMovesBaseListener{
 
 			String string = methodName+stoneParam;
 			methods.add(string);
-			//System.out.println(methods.toString());
-
-
-
-			//System.out.println("stoneParam:"+stoneParam + ", methodString:"+methodName);
 
 		}
-
-		System.out.println(createConstruct(methods));
-
-
-
-
 	}
 
 
-	/*@Override public void enterCommand(AiMovesParser.CommandContext ctx) {
-		System.out.println(ctx.getText());
-		System.out.println();
-		switch(ctx.choosetype().getText().trim().toLowerCase()){
-			case "vorderster":
-				stoneParam = "first)";
-				break;
-			case "hinterster":
-				stoneParam = "last)";
-				break;
-			case "zufaelliger":
-				stoneParam = "random)";
-				break;
-		}
-		switch(ctx.move().getText().trim().toLowerCase()){
-			case "ziehe":
-				methodName = "move";
-				break;
-			case "springe":
-				methodName = "jump";
-				break;
-
-		}
-		switch(ctx.movetype().getText().trim().toLowerCase()){
-			case "zufaellig":
-				methodName += "Random(";
-				break;
-			case "gerade":
-				methodName += "Forward(";
-				break;
-			case "diagonal":
-				methodName += "Forward(";
-				break;
-			case "zur seite":
-				methodName += "SideWays(";
-				break;
-		}
-
-		System.out.println("stoneParam:"+stoneParam + ", methodString:"+methodName);
-
-	}
-*/
-
-	public String createConstruct(List<String> methodNames){
+	public static String createConstruct(){
 		String method = "";
-		for(String element:methodNames){
+		for(String element: methods){
 			method+=getConstruct(element);
-			//method+="}";
+		}
+		//recursionmove
+		method += "return calculateMove();}";
+		for(int i = 0; i<  methods.size(); i++ ){
+			method += "}";
 
 		}
-		method += "return false;}";
 		return method;
 	}
 
-	public String getConstruct(String con){
-		String construct = "move = " + con + ";"+
+	public static String getConstruct(String con){
+		String construct =
+				"move = " + con + ";"+
 				"if(move){"+
-				"return true;"+
+					"return true;"+
 				"}else{"+
 				//recursion
 				"";
 		return construct;
 	}
 
-
-
-
-
-
-
-/*	private String getMethodString(String aiType){
-		switch(aiType){
-			case "easy":
-				methodString = "Stone randomStone  = findRandomStone();\n" +
-						"\t\tPoint point = field.getPositionOfStone(randomStone);\n" +
-						"\n" +
-						"\t\tboolean move = moveForward(randomStone);\n" +
-						"\t\tif(move){\n" +
-						"\t\t\treturn true;\n" +
-						"\t\t}else{\n" +
-						"\t\t\treturn calculateEasyMove();\n" +
-						"\t\t}";
-				break;
-			case "medium":
-				methodString = "";
-				break;
-			case "hard":
-				methodString = "";
-				break;
-
-		}
-		return methodString;
-	}*/
-
-
-	public static void main (String[] args){
+	public static void main (){
 		//Parse and convert the attributes.txt
 		try {
 			CharStream in = new org.antlr.v4.runtime.ANTLRInputStream(new FileReader(System.getProperty("user.dir")+"/src/ai/"+aiType+".txt"));
@@ -201,21 +116,33 @@ public class AIPlayerGenerator extends AiMovesBaseListener{
 			//Create the String of new File
 			String classString = "package ai; "+
 					"import java.awt.*;"+
+					"import game.Field;\n" +
+					"import game.Stone;\n" +
+					"\n" +
+					"import java.awt.*;\n" +
+					"import java.util.ArrayList;\n" +
+					"import java.util.Random;"+
+
 					"public class AIPlayer {"+
+					"\tField field;\n" +
+					"\tArrayList<Stone> stone_list;\n" +
+					"\tString movement;\n" +
 
+					"public AIPlayer() {"+
 
-						"public AIPlayer() {"+
+					"}"+ "public void setField(Field field){\n" +
+					"\t\tthis.field = field;\n" +
+					"\t\tthis.stone_list = field.getStonesByAffiliation(false);\n" +
+					"\t\tthis.movement = field.getMovementTypeLevel();\n" +
+					"\t}"+
 
-						"}"+
-
-						"public boolean calculateMove(){" +
-							"Stone first = findForwardStone();"+
-							"Stone random = findRandomStone();"+
-							"Stone last = findLastStone();"+
-							"boolean move;"+
-							methodString+
-						"}"+
-						"\tpublic boolean jumpRandom(Stone stone){\n" +
+					"public boolean calculateMove(){" +
+					"Stone first = findForwardStone();"+
+					"Stone random = findRandomStone();"+
+					"Stone last = findLastStone();"+
+					"boolean move;"+
+					createConstruct()+
+					"\tpublic boolean jumpRandom(Stone stone){\n" +
 					"\t\tPoint point = field.getAllowedJump(field.getPositionOfStone(stone));\n" +
 					"\t\tboolean allowed = field.setPosition(stone, (int)point.getX(), (int)point.getY());\n" +
 					"\t\treturn allowed;\n" +
@@ -299,7 +226,7 @@ public class AIPlayerGenerator extends AiMovesBaseListener{
 					"\n" +
 					"\t}\n" +
 					"\n" +
-					"\tpublic boolean moveSideways(Stone stone){\n" +
+					"\tpublic boolean moveSideWays(Stone stone){\n" +
 					"\t\tPoint pos = field.getPositionOfStone(stone);\n" +
 					"\t\tswitch(movement){\n" +
 					"\t\t\tcase \"straight\" :\n" +
@@ -360,12 +287,9 @@ public class AIPlayerGenerator extends AiMovesBaseListener{
 
 
 					"}";
-
-
 			//Create the File
-			System.out.println(aiType + " und methode: "+ methodString);
 			//Edit the path to edit the working directory!!
-	/*		File file = new File(System.getProperty("user.dir")+"/src/ai/AIPlayer2.java");
+			File file = new File(System.getProperty("user.dir")+"/src/ai/AIPlayer.java");
 			// if file doesn't exists, then create it
 			if (!file.exists()) file.createNewFile();
 			//Write all in File
@@ -374,10 +298,10 @@ public class AIPlayerGenerator extends AiMovesBaseListener{
 			bw.write(classString);
 			bw.close(); //generate from .java the .class-file
 			System.out.println("AIPlayer.java erstellt!");
-*/
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
+
 }
