@@ -68,37 +68,39 @@ public class GameSetup {
 
 	}*/
 
-	public static Field createChoosedField(String choosedfieldname){
+	public static Field createChoosedField(String choosedfieldname, int fieldnumber){
 		Field field = null;
 		IPlayField playfield;
+		int powFieldnumber = fieldnumber*fieldnumber;
 		switch(choosedfieldname){
 			case "classic":
-				playfield = new ClassicField(100);
+				playfield = new ClassicField(powFieldnumber);
 				field = playfield.createField();
 				break;
 			case "le zug":
-				playfield = new LeZugField(100);
+				playfield = new LeZugField(powFieldnumber);
 				field = playfield.createField();
 				break;
 			case "renpaarden":
-				playfield = new RenpaardenField(100);
+				playfield = new RenpaardenField(powFieldnumber);
 				field = playfield.createField();
 				break;
 		}
 		return field;
 	}
-	public static Field createReflectedChoosedField(String choosedFieldType){
+	public static Field createReflectedChoosedField(String choosedFieldType, int fieldnumber){
 		Field field = null;
 		//IPlayField playfield;
+		int powFieldnumber = fieldnumber*fieldnumber;
 		switch(choosedFieldType){
 			case "classic":
-				field = new ClassicField(100).createReflectedField();
+				field = new ClassicField(powFieldnumber).createReflectedField();
 				break;
 			case "le zug":
-				field = new LeZugField(100).createReflectedField();
+				field = new LeZugField(powFieldnumber).createReflectedField();
 				break;
 			case "renpaarden":
-				field = new RenpaardenField(100).createReflectedField();
+				field = new RenpaardenField(powFieldnumber).createReflectedField();
 				break;
 		}
 		return field;

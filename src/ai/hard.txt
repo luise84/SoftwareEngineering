@@ -5,4 +5,4 @@ Hinterster Stein und springe diagonal nach vorne.
 vorderster Stein und ziehe diagonal nach vorne oder
 Vorderster Stein und ziehe gerade nach vorne.
 Vorderster Stein und ziehe zur seite oder
-zufälliger Stein und ziehe diagonal nach vorne.
+zufaelliger Stein und ziehe diagonal nach vorne.

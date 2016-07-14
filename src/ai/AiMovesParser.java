@@ -29,9 +29,9 @@ public class AiMovesParser extends Parser {
 	};
 
 	private static final String[] _LITERAL_NAMES = {
-		null, "'Stein'", "'.'", "'Zufälliger'", "'Vorderster'", "'Hinterster'", 
-		"'zufälliger'", "'vorderster'", "'hinterster'", "'ziehe'", "'springe'", 
-		"'zufällig'", "'gerade'", "'zur Seite'", "'zur seite'", "'diagonal'", 
+		null, "'Stein'", "'.'", "'Zufaelliger'", "'Vorderster'", "'Hinterster'", 
+		"'zufaelliger'", "'vorderster'", "'hinterster'", "'ziehe'", "'springe'", 
+		"'zufaellig'", "'gerade'", "'zur Seite'", "'zur seite'", "'diagonal'", 
 		"'nach'", "'vorne'", "'hinten'", null, null, "'und'", "'oder'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {

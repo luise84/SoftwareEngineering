@@ -152,6 +152,7 @@ public class View extends JFrame implements MouseListener,MouseMotionListener {
 	public void showEndGame(){
 		JLabel endText = new JLabel("Das Spiel ist zu Ende!");
 		ui.add(endText,BorderLayout.CENTER);
+		System.out.println("Frame: Endgame showed");
 
 	}
 	private void emptyBoard(){

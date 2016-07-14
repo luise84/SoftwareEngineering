@@ -17,6 +17,7 @@ public class AttributeGenerator extends AttributesBaseListener{
 	static String playfield = "";
 	static String level = "";
 	static String ai = "";
+	static int fieldnumber = 0;
 
 	@Override
 	/*Diese Methode verarbeitet die eingegebenen RGB-Werte*/
@@ -61,6 +62,10 @@ public class AttributeGenerator extends AttributesBaseListener{
 
 	@Override public void enterAi(AttributesParser.AiContext ctx) { ai = "\"" + ctx.getText().split(":")[1].trim().toLowerCase() +"\""; }
 
+	@Override public void enterFieldnumber(AttributesParser.FieldnumberContext ctx) {
+		fieldnumber = Integer.parseInt(ctx.getText().split(":")[1].trim().toLowerCase());
+	}
+
 
 	public static void main (){
 
@@ -81,7 +86,7 @@ public class AttributeGenerator extends AttributesBaseListener{
 			AttributesBaseListener listener = new AttributeGenerator();
 			walker.walk(listener, fileContext);
 
-			System.out.println(aiPath + " und "+ playerPath + " mit Spielfeldfarbe:" + rgbs + " Playfield: " + playfield + " level: "+ level);
+			System.out.println(aiPath + " und "+ playerPath + " mit Spielfeldfarbe:" + rgbs + " Playfield: " + playfield +"mit "+fieldnumber + " Feldern ,"+ " level: "+ level + " ai: " + ai);
 
 			//Create the String of new File
 			String classString = "package gameConfigurations; "+
@@ -91,6 +96,7 @@ public class AttributeGenerator extends AttributesBaseListener{
 					"public String aiStoneImagePath;"+
 					"public String playerStoneImagePath;"+
 					"public String playfield; "+
+					"public int fieldnumber;"+
 					"public String level;"+
 					"public String ai;"+
 
@@ -99,6 +105,7 @@ public class AttributeGenerator extends AttributesBaseListener{
 					"this.aiStoneImagePath = "+aiPath+";"+
 					"this.playerStoneImagePath = "+playerPath+";"+
 					"this.playfield = "+playfield+";"+
+					"this.fieldnumber = "+fieldnumber+";"+
 					"this.level = "+level+";"+
 					"this.ai = "+ai+";"+
 					"}"+

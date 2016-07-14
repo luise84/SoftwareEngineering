@@ -1,5 +1,4 @@
-// Generated from AiMoves.g4 by ANTLR 4.5.3
-package ai;
+package ai;// Generated from AiMoves.g4 by ANTLR 4.5.3
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;

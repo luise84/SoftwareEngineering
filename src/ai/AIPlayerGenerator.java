@@ -11,13 +11,38 @@ import java.io.*;
  */
 public class AIPlayerGenerator extends AiMovesBaseListener{
 	private static String aiType;
+	private static String methodString;
 
 	public AIPlayerGenerator(String aiType){
 		this.aiType = aiType;
 	}
 
+	private String getMethodString(String aiType){
+		switch(aiType){
+			case "easy":
+				methodString = "Stone randomStone  = findRandomStone();\n" +
+						"\t\tPoint point = field.getPositionOfStone(randomStone);\n" +
+						"\n" +
+						"\t\tboolean move = moveForward(randomStone);\n" +
+						"\t\tif(move){\n" +
+						"\t\t\treturn true;\n" +
+						"\t\t}else{\n" +
+						"\t\t\treturn calculateEasyMove();\n" +
+						"\t\t}";
+				break;
+			case "medium":
+				methodString = "";
+				break;
+			case "hard":
+				methodString = "";
+				break;
 
-	public static void main (String[] args){
+		}
+		return methodString;
+	}
+
+
+	public static void main (){
 		//Parse and convert the attributes.txt
 		try {
 			CharStream in = new org.antlr.v4.runtime.ANTLRInputStream(new FileReader(System.getProperty("user.dir")+"/src/ai/"+aiType+".txt"));
@@ -37,17 +62,22 @@ public class AIPlayerGenerator extends AiMovesBaseListener{
 			//Create the String of new File
 			String classString = "package ai; "+
 					"import java.awt.*;"+
-					"public class AIPlayer {"+
+					"public class AIPlayer2 {"+
 
-					"public AIPlayer() {"+
+						"public AIPlayer() {"+
 
-					"}"+
+						"}"+
+
+						"public boolean calculateMove(){" +
+							methodString+
+						"}"+
 					"}";
 
 
 			//Create the File
+			System.out.println(aiType + " und methode: "+ methodString);
 			//Edit the path to edit the working directory!!
-			File file = new File(System.getProperty("user.dir")+"/src/gameConfigurations/AIPlayer.java");
+			File file = new File(System.getProperty("user.dir")+"/src/ai/AIPlayer2.java");
 			// if file doesn't exists, then create it
 			if (!file.exists()) file.createNewFile();
 			//Write all in File

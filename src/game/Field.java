@@ -394,6 +394,8 @@ public class Field{
             }
         }
 
+
+
         if(counterComputerplayer == stonesOfOnePlayer){
             System.out.println("Der Computer hat gewonnen!!");
             return true;

@@ -57,6 +57,16 @@ public interface AttributesListener extends ParseTreeListener {
 	 */
 	void exitPlayfield(AttributesParser.PlayfieldContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AttributesParser#fieldnumber}.
+	 * @param ctx the parse tree
+	 */
+	void enterFieldnumber(AttributesParser.FieldnumberContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AttributesParser#fieldnumber}.
+	 * @param ctx the parse tree
+	 */
+	void exitFieldnumber(AttributesParser.FieldnumberContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AttributesParser#level}.
 	 * @param ctx the parse tree
 	 */

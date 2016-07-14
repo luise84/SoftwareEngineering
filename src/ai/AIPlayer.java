@@ -24,7 +24,7 @@ public class AIPlayer {
 		this.movement = field.getMovementTypeLevel();
 	}
 	public boolean calculateMove(){
-		return calculateHardMove();
+		return calculateMediumMove();
 	}
 
 	public boolean calculateEasyMove(){

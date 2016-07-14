@@ -34,6 +34,7 @@ public class GameController {
 		attributeGenerator.main();
 		this.attribute = new Attribute();
 		this.aiGenerator = new AIPlayerGenerator(attribute.ai);
+		aiGenerator.main();
 
 
 	}
@@ -64,15 +65,15 @@ public class GameController {
 			frame.enableUserInput(false);
 			frame.showEndGame();
 		}
-//		field.printField();
+		field.printField();
 		userInput();
 	}
 
 	private void startGame(){
-		field = gamesetup.createChoosedField(attribute.playfield);
+		field = gamesetup.createChoosedField(attribute.playfield, attribute.fieldnumber);
 		level = attribute.level;
 		//field = new LeZugField(100).createField();
-		endField = gamesetup.createReflectedChoosedField(attribute.playfield);
+		endField = gamesetup.createReflectedChoosedField(attribute.playfield, attribute.fieldnumber);
 
 		//new LeZugField(100).createReflectedField();
 		//level = "straight";

@@ -1,2 +1,2 @@
-Zufälliger Stein und ziehe gerade nach vorne oder
-Zufälliger Stein und ziehe diagonal nach vorne.
+Zufaelliger Stein und ziehe gerade nach vorne oder
+Zufaelliger Stein und ziehe diagonal nach vorne.

@@ -75,6 +75,18 @@ public class AttributesBaseListener implements AttributesListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFieldnumber(AttributesParser.FieldnumberContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFieldnumber(AttributesParser.FieldnumberContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterLevel(AttributesParser.LevelContext ctx) { }
 	/**
 	 * {@inheritDoc}
