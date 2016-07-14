@@ -82,6 +82,30 @@ public class AiMovesBaseListener implements AiMovesListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitMovedirection(AiMovesParser.MovedirectionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAlternativeSymbol(AiMovesParser.AlternativeSymbolContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAlternativeSymbol(AiMovesParser.AlternativeSymbolContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterEndline(AiMovesParser.EndlineContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitEndline(AiMovesParser.EndlineContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

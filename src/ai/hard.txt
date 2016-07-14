@@ -1,8 +1,4 @@
-Vorderster Stein und springe gerade nach vorne oder
-Vorderster Stein und springe diagonal nach vorne.
-hinterster Stein und springe gerade nach vorne oder
-Hinterster Stein und springe diagonal nach vorne.
-vorderster Stein und ziehe diagonal nach vorne oder
-Vorderster Stein und ziehe gerade nach vorne.
-Vorderster Stein und ziehe zur seite oder
-zufaelliger Stein und ziehe diagonal nach vorne.
+Vorderster Stein und springe gerade nach vorne.
+hinterster Stein und springe gerade nach vorne.
+vorderster Stein und ziehe diagonal nach vorne.
+Vorderster Stein und ziehe zur seite.

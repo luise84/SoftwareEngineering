@@ -1,7 +1,7 @@
 grammar AiMoves;
-file: command (Oder* NEWLINE command)* (NEWLINE command)* EOF;
+file: command (alternativeSymbol* NEWLINE command)* (NEWLINE command)* EOF;
 
-command: choosetype WHITESPACE+ 'Stein' WHITESPACE+ Connector WHITESPACE+ move WHITESPACE+ movetype WHITESPACE* movedirection* WHITESPACE* '.'*;
+command: choosetype WHITESPACE+ 'Stein' WHITESPACE+ Connector WHITESPACE+ move WHITESPACE+ movetype WHITESPACE* movedirection* WHITESPACE* endline*;
 
 NEWLINE: [\r\n]+;
 WHITESPACE: [ \t\n\r];
@@ -10,4 +10,5 @@ Connector: 'und';
 move: 'ziehe' | 'springe';
 movetype: 'zufaellig' | 'gerade' | 'zur Seite' | 'zur seite' | 'diagonal';
 movedirection:  'nach' WHITESPACE ('vorne' | 'hinten');
-Oder: 'oder';
+alternativeSymbol: 'oder';
+endline: '.';

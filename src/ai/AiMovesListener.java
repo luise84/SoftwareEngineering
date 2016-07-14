@@ -66,4 +66,24 @@ public interface AiMovesListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitMovedirection(AiMovesParser.MovedirectionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AiMovesParser#alternativeSymbol}.
+	 * @param ctx the parse tree
+	 */
+	void enterAlternativeSymbol(AiMovesParser.AlternativeSymbolContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AiMovesParser#alternativeSymbol}.
+	 * @param ctx the parse tree
+	 */
+	void exitAlternativeSymbol(AiMovesParser.AlternativeSymbolContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AiMovesParser#endline}.
+	 * @param ctx the parse tree
+	 */
+	void enterEndline(AiMovesParser.EndlineContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AiMovesParser#endline}.
+	 * @param ctx the parse tree
+	 */
+	void exitEndline(AiMovesParser.EndlineContext ctx);
 }
