@@ -64,7 +64,7 @@ public class GameController {
 			frame.enableUserInput(false);
 			frame.showEndGame();
 		}
-		field.printField();
+//		field.printField();
 		userInput();
 	}
 
@@ -78,7 +78,7 @@ public class GameController {
 		//level = "straight";
 
 		//new LeZugField(100).createReflectedField();
-		level = "straight";
+//		level = "straight";
 		//level = "diagonal";
 		field.setMovementType(level);
 		aiplayer = new AIPlayer();

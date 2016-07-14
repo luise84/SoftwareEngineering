@@ -24,8 +24,7 @@ public class AIPlayer {
 		this.movement = field.getMovementTypeLevel();
 	}
 	public boolean calculateMove(){
-
-		return calculateMediumMove();
+		return calculateHardMove();
 	}
 
 	public boolean calculateEasyMove(){
@@ -81,10 +80,10 @@ public class AIPlayer {
 
 	public boolean calculateHardMove(){
 		Stone first = findForwardStone();
+		Stone last = findLastStone();
 		if(jumpForward(first)){
 			return true;
 		}else{
-			Stone last = findLastStone();
 			if(jumpForward(last)){
 				return true;
 			}else{
@@ -208,17 +207,17 @@ public class AIPlayer {
 
 	public Stone findForwardStone(){
 		Stone ret = null;
+		int big_y = 0;
 		for(Stone stone : stone_list){
-			if(ret == null){
-				ret = stone;
-			}
-			Point dim_ret = field.getPositionOfStone(ret);
-			Point dim = field.getPositionOfStone(stone);
-			if(dim_ret.getY() < dim.getY()){
-
+			Point dim_stone = field.getPositionOfStone(stone);
+			System.out.println(dim_stone);
+			int new_y = (int)dim_stone.getY();
+			if(new_y > big_y){
+				big_y = new_y;
 				ret = stone;
 			}
 		}
+		System.out.println(big_y);
 		return ret;
 	}
 
