@@ -23,15 +23,17 @@ public class AIPlayer {
 		this.stone_list = field.getStonesByAffiliation(false);
 		this.movement = field.getMovementTypeLevel();
 	}
+
 	public boolean calculateMove(){
 		return calculateMediumMove();
 	}
 
 	public boolean calculateEasyMove(){
-		Stone randomStone  = findRandomStone();
-		Point point = field.getPositionOfStone(randomStone);
-
-		boolean move = moveForward(randomStone);
+		Stone first = findForwardStone();
+		Stone random  = findRandomStone();
+		Stone last = findLastStone();
+		boolean move;
+		move = moveForward(random);
 		if(move){
 			return true;
 		}else{
@@ -41,33 +43,29 @@ public class AIPlayer {
 
 	public boolean calculateMediumMove(){
 		Stone randomStone  = findRandomStone();
-		Point point = field.getPositionOfStone(randomStone);
-		boolean move = jumpForward(randomStone);
+		Stone lastStone = findLastStone();
+		boolean move;
+
+
+		move = jumpForward(randomStone);
 		if(move){
 			return true;
 		}else{
-			Point jumper = field.getAllowedJump(point);
-			boolean jumped;
-			if(jumper != null){
-				jumped = field.setPosition(randomStone,(int)jumper.getX(),(int)jumper.getY());
-			}else{
-				jumped = false;
-			}
-			if(jumped){
+			move = jumpRandom(randomStone);
+			if(move ){
 				return true;
 			}else{
-				Stone lastStone = findLastStone();
-				boolean move_last = moveForward(lastStone);
-				if(move_last){
+				move  = moveForward(lastStone);
+				if(move){
 					return true;
 				}else{
-					boolean move_sideways = moveSideways(lastStone);
-					if(move_sideways){
+					move = moveSideways(lastStone);
+					if(move){
 						return true;
 					}else{
-						boolean move_forward =moveStraightForward(randomStone);
-						if(move_forward){
-							return move_forward;
+						move = moveStraightForward(randomStone);
+						if(move){
+							return true;
 						}else{
 							return calculateMediumMove();
 						}
@@ -77,7 +75,6 @@ public class AIPlayer {
 			}
 		}
 	}
-
 	public boolean calculateHardMove(){
 		Stone first = findForwardStone();
 		Stone last = findLastStone();
@@ -103,6 +100,20 @@ public class AIPlayer {
 				}
 			}
 		}
+	}
+
+
+	public boolean jumpRandom(Stone stone){
+		Point point = field.getAllowedJump(field.getPositionOfStone(stone));
+		boolean allowed = field.setPosition(stone, (int)point.getX(), (int)point.getY());
+		return allowed;
+	}
+
+	public boolean moveRandom(Stone stone){
+		Point point = field.getAllowedMove(field.getPositionOfStone(stone));
+		boolean allowed = field.setPosition(stone,(int)point.getX(), (int)point.getY());
+		return allowed;
+
 	}
 
 
@@ -210,14 +221,12 @@ public class AIPlayer {
 		int big_y = 0;
 		for(Stone stone : stone_list){
 			Point dim_stone = field.getPositionOfStone(stone);
-			System.out.println(dim_stone);
 			int new_y = (int)dim_stone.getY();
 			if(new_y > big_y){
 				big_y = new_y;
 				ret = stone;
 			}
 		}
-		System.out.println(big_y);
 		return ret;
 	}
 
