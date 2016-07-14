@@ -4,4 +4,4 @@ Bildpfad des Spielers: img\gruen.png
 Spielfeldtyp: renpaarden
 Spielfeldanzahl: 10
 Level: free
-AI: medium
+AI: easy

@@ -10,7 +10,7 @@ public AIPlayer() {}public void setField(Field field){
 		this.field = field;
 		this.stone_list = field.getStonesByAffiliation(false);
 		this.movement = field.getMovementTypeLevel();
-	}public boolean calculateMove(){Stone first = findForwardStone();Stone random = findRandomStone();Stone last = findLastStone();boolean move;move = moveForward(first);if(move){return true;}else{return calculateMove();}}	public boolean jumpRandom(Stone stone){
+	}public boolean calculateMove(){Stone first = findForwardStone();Stone random = findRandomStone();Stone last = findLastStone();boolean move;move = jumpForward(last);if(move){return true;}else{return calculateMove();}}	public boolean jumpRandom(Stone stone){
 		Point point = field.getAllowedJump(field.getPositionOfStone(stone));
 		boolean allowed = field.setPosition(stone, (int)point.getX(), (int)point.getY());
 		return allowed;
